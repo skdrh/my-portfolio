@@ -21,12 +21,12 @@ const Footer = ({data}: { data: HeroSection }) => {
               <p className="flex gap-1">
                 <span className="text-muted-foreground">Developed & designed by</span> <Link
                 className="flex items-center hover:underline hover:text-foreground transition-all font-semibold"
-                href="https://github.com/dragon-devs ">
+                href="https://dragondevs.co ">
                 <Image src='/dragondevs-logo.png'
                        alt='dragondevs'
                        width={100}
                        height={100}
-                       className="w-4 h-4 rounded-full mr-1"
+                       className="size-5 rounded-full mr-1"
                 /> dragondevs</Link>
               </p>
               <p>

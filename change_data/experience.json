@@ -26,5 +26,12 @@
     "title": "Developer",
     "company": "OBS-Employed",
     "description": "Worked in collaboration with the highly experienced owner of OBS, who has over 20+ years of expertise in software development. Contributed as a developer and designer on a comprehensive learning management system project designed for schools and colleges. Responsibilities included designing intuitive interfaces, implementing core functionality, and ensuring seamless user experiences tailored to the needs of educational institutions."
+  },
+  {
+    "from": "2024",
+    "to": "2025",
+    "title": "Product Builder",
+    "company": "Bizstock / Self-Employed",
+    "description": "Designed, architected, and built Bizstock, a fully multi-tenant inventory management system developed end-to-end as a solo product builder. Defined product requirements, designed all interfaces, implemented core modules for inventory, stock control, purchasing, reporting, and multi-tenant isolation. Delivered a scalable, production-ready system optimized for SMEs with a strong focus on usability, performance, and clean system architecture."
   }
 ]

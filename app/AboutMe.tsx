@@ -12,9 +12,10 @@ const AboutMe = () => {
                         <h2 className=" tracking-tighter font-semibold sm:text-3xl text-2xl animate-fade-left">
                             About Me
                         </h2>
-                        <p className="text-muted-foreground sm:w-[47%] sm:leading-8 animate-fade-left">
-                            {me.about_me}
-                        </p>
+                        <p
+                          className="text-muted-foreground sm:w-[47%] sm:leading-8 animate-fade-left"
+                          dangerouslySetInnerHTML={{ __html: me.about_me }}
+                        />
                         <div className="flex-wrap flex gap-2 animate-fade-left">
                             <p>&quot;{me.quote}&quot;</p><p className="font-semibold"> - {me.author}</p>
                         </div>
