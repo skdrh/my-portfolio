@@ -5,7 +5,6 @@ import {
     CAREER_START,
     COMPANY,
     CONTACT_EMAIL,
-    LOCATION,
     HANDLE,
     NAME,
     ROLE,
@@ -21,8 +20,10 @@ import {
  * verifiable from the page itself. Google treats fabricated structured data
  * as spam, and a Person schema claiming awards or ratings that appear nowhere
  * on the page is exactly the pattern its spam systems look for. So there is no
- * `award`, no `aggregateRating`, and no street address — only the locality,
- * which is all that is confirmed.
+ * `award` and no `aggregateRating`. There is no address either: the page
+ * deliberately does not state a location, and a Person.address asserting a
+ * locality the page never mentions is the kind of inconsistency that gets a
+ * schema block discounted.
  */
 
 const PERSON_ID = `${SITE_URL}/#person`;
@@ -36,14 +37,11 @@ export function personSchema() {
         name: NAME,
         alternateName: [HANDLE, "skdrh"],
         url: SITE_URL,
-        jobTitle: ROLE,
+        // Several titles rather than one: the work spans architecture,
+        // engineering and running the company, and each is a distinct query.
+        jobTitle: [ROLE, "Software Architect", "Full-stack Engineer", "Founder"],
         description: SITE_DESCRIPTION,
         email: `mailto:${CONTACT_EMAIL}`,
-        address: {
-            "@type": "PostalAddress",
-            addressLocality: LOCATION.city,
-            addressCountry: LOCATION.countryCode,
-        },
         // Only real, in-use profiles. A dead link here is worse than none.
         sameAs: [SOCIALS.github, SOCIALS.linkedin, SOCIALS.x, COMPANY.url],
         worksFor: {
@@ -54,6 +52,11 @@ export function personSchema() {
         },
         // Mirrors the Expertise section — these are claims the page backs up.
         knowsAbout: [
+            "Software architecture",
+            "Scalable system design",
+            "Product architecture",
+            "Go-to-market strategy",
+            "SaaS pricing and licensing",
             "Offline-first software architecture",
             "Local-first data synchronisation",
             "Multi-tenant SaaS architecture",
@@ -73,19 +76,6 @@ export function personSchema() {
         hasOccupation: {
             "@type": "Occupation",
             name: ROLE,
-            occupationLocation: {
-                "@type": "Country",
-                name: LOCATION.country,
-            },
-        },
-        // Employment history, straight off the timeline on the page.
-        workLocation: {
-            "@type": "Place",
-            address: {
-                "@type": "PostalAddress",
-                addressLocality: LOCATION.city,
-                addressCountry: LOCATION.countryCode,
-            },
         },
     };
 }
@@ -107,11 +97,6 @@ export function organizationSchema() {
         description:
             "dragondevs builds SEO-friendly websites, custom software and full-stack web apps, taking products from idea to deployment.",
         founder: {"@id": PERSON_ID},
-        address: {
-            "@type": "PostalAddress",
-            addressLocality: LOCATION.city,
-            addressCountry: LOCATION.countryCode,
-        },
     };
 }
 
@@ -228,36 +213,35 @@ export function jsonLdGraph(...nodes: object[]) {
 
 /** Keyword set for <meta name="keywords">, and a useful record of intent. */
 export const KEYWORDS = [
-    // Brand — the queries that should land here first.
+    // Brand - the queries that should land here first.
     "Salman Khan developer",
-    "Salman Khan engineer",
+    "Salman Khan software architect",
     "Salman Khan dragondevs",
     "skdrh",
     "dragondevs founder",
     // Role
-    "full-stack product engineer",
-    "full-stack developer Pakistan",
-    "software engineer Islamabad",
-    "React developer Islamabad",
-    "Next.js developer Pakistan",
-    "TypeScript developer",
-    "Django developer Pakistan",
-    // Specialism — the differentiated, low-competition terms
+    "software architect",
+    "product architect",
+    "end-to-end product builder",
+    "solo product builder",
+    "full-stack engineer",
+    "Next.js developer",
+    "TypeScript architect",
+    // Specialism - the differentiated, low-competition terms
+    "scalable system design",
     "offline-first developer",
     "local-first software engineer",
-    "offline first app developer",
     "Tauri developer",
-    "multi-tenant SaaS developer",
+    "multi-tenant SaaS architecture",
     "bilingual RTL web developer",
-    "Arabic English web developer",
     "headless commerce developer",
     // Intent
-    "hire full-stack engineer",
+    "hire software architect",
     "hire offline-first developer",
-    "freelance software engineer Pakistan",
-    "remote full-stack engineer UTC+5",
+    "hire solo product builder",
+    "remote software architect",
     "inventory POS software developer",
-]
+];
 
 /** Earliest year on the timeline — used for the copyright range in the footer. */
 export const FOUNDED = CAREER_START;

@@ -17,7 +17,12 @@ export const NAME = "Salman Khan";
 /** Used in the wordmark and the <title> template. */
 export const HANDLE = "salman khan";
 
-export const ROLE = "Full-stack Product Engineer";
+/**
+ * "Software architect" is the searched term and the one the work leans on;
+ * "product builder" is the part most engineers cannot claim — architecture
+ * through engineering through business and go-to-market, done by one person.
+ */
+export const ROLE = "Software Architect & Product Builder";
 
 /**
  * The one-sentence version, used for meta description, OG and JSON-LD.
@@ -25,16 +30,20 @@ export const ROLE = "Full-stack Product Engineer";
  * penalised the latter for years and humans never liked it.
  */
 export const SITE_DESCRIPTION =
-    "Salman Khan is a full-stack product engineer building offline-first software, " +
-    "multi-tenant business systems and bilingual commerce platforms end to end — " +
-    "architecture, interface and code. Founder of dragondevs.";
+    "Salman Khan designs and builds entire products alone — scalable architecture, " +
+    "full-stack engineering, then the business and the go-to-market around it. " +
+    "Offline-first software, multi-tenant SaaS and bilingual commerce. " +
+    "Founder of dragondevs and the sole builder of Bizstock.";
 
-export const LOCATION = {
-    city: "Islamabad",
-    country: "Pakistan",
-    countryCode: "PK",
-    timezone: "UTC+5",
-} as const;
+/**
+ * Working hours, not an address.
+ *
+ * The city was removed from the page deliberately, so it is gone from the
+ * structured data too — a Person.address claiming a locality the page never
+ * states is exactly the kind of inconsistency that devalues a schema block.
+ * The offset stays because a client scheduling a call genuinely needs it.
+ */
+export const TIMEZONE = "UTC+5";
 
 /**
  * Contact address shown on the page and used as the mailto: target.
@@ -77,7 +86,7 @@ export const FACTS: {figure: string; label: string}[] = [
     {figure: `${YEARS_BUILDING} yrs`, label: `building software, since ${CAREER_START}`},
     {figure: "4", label: "production systems, written up as case studies"},
     {figure: "28+", label: "projects delivered end to end"},
-    {figure: "2", label: "products of my own in the market"},
+    {figure: "1", label: "person behind Bizstock — design, code and go-to-market"},
 ];
 
 /** Primary nav — also drives the scroll-spy and the mobile sheet. */

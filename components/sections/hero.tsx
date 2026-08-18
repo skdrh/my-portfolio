@@ -1,21 +1,22 @@
 import {ArrowUpRight, Github, Linkedin, Mail} from "lucide-react";
 
-import {COMPANY, CONTACT_EMAIL, FACTS, LOCATION, NAME, SOCIALS} from "@/lib/site";
+import {COMPANY, CONTACT_EMAIL, FACTS, NAME, SOCIALS, TIMEZONE} from "@/lib/site";
 
 /**
  * Where the old portfolio put a cut-out photograph, this puts the drawing's
- * title block: the four facts a hiring manager or a prospective client
- * actually scans for, set as mono rows with registration ticks on the
- * diagonal. It carries the weight the photo did and says considerably more.
+ * title block. Every row answers something a serious reader wants to know,
+ * which is why the location row that used to sit at the top is gone — where
+ * someone lives is the least interesting fact about them, and pinning it above
+ * the work invited the wrong kind of filtering.
  */
 const SPEC: {label: string; value: string}[] = [
-    {label: "Based", value: `${LOCATION.city}, ${LOCATION.country} · ${LOCATION.timezone}`},
-    {label: "Focus", value: "Offline-first systems · Multi-tenant SaaS · Commerce"},
-    {label: "Depth", value: "Architecture, interface and code — end to end"},
+    {label: "Scope", value: "Architecture → engineering → business → marketing"},
+    {label: "Focus", value: "Scalable systems · Offline-first · Multi-tenant SaaS"},
+    {label: "Proof", value: "Bizstock — designed, built and taken to market alone"},
     {label: "Company", value: "Founder, dragondevs"},
 ];
 
-const PROOF = ["Offline-first", "Multi-tenant", "Bilingual / RTL", "Cross-platform"];
+const PROOF = ["Scalable architecture", "Offline-first", "Multi-tenant", "Solo delivery"];
 
 export function Hero() {
     return (
@@ -34,15 +35,16 @@ export function Hero() {
                             <p className="callout">{NAME} — Full-stack Product Engineer</p>
 
                             <h1 className="mt-6 font-display text-[36px] leading-[1.02] font-semibold tracking-[-0.04em] text-foreground sm:text-[52px] lg:text-[60px]">
-                                I build production systems end to end.
+                                I take products from architecture to market.
                             </h1>
 
                             <p className="mt-6 max-w-xl text-pretty text-[15px] leading-7 text-muted-foreground sm:text-[16.5px] sm:leading-8">
-                                From designing signage in the UAE to architecting the software
-                                businesses run on. I build the kind of system that has to keep
-                                working when the conditions are not ideal — offline, bilingual,
-                                multi-tenant, on whatever device is in front of the person using
-                                it. Architecture, interface and code, usually all three.
+                                I am an end-to-end product builder. That means the
+                                architecture and the scaling decisions first, then the
+                                engineering, then the business around it and the marketing that
+                                puts it in front of people — done by one person rather than
+                                handed between four. Bizstock is the proof: every line of it,
+                                every screen, and every customer, mine.
                             </p>
 
                             {/* The dividers are hidden below `sm`: once this strip wraps

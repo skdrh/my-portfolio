@@ -2,7 +2,7 @@ import {ArrowUpRight, Github, Linkedin, Mail, MessageCircle} from "lucide-react"
 
 import {ContactForm} from "@/components/contact-form";
 import {Section} from "@/components/section";
-import {CONTACT_EMAIL, LOCATION, SOCIALS, WHATSAPP_E164} from "@/lib/site";
+import {CONTACT_EMAIL, SOCIALS, TIMEZONE, WHATSAPP_E164} from "@/lib/site";
 
 const CHANNELS = [
     {
@@ -82,9 +82,9 @@ export function Contact() {
                             Open to select work
                         </p>
                         <p className="text-[13px] leading-6 text-muted-foreground">
-                            Based in {LOCATION.city} ({LOCATION.timezone}), with delivered work
-                            across Pakistan, Saudi Arabia and the UAE. Remote engagements
-                            anywhere. I read every message myself.
+                            Working {TIMEZONE}, which overlaps a normal day across the Gulf,
+                            Europe and most of Asia. Every engagement so far has been remote.
+                            I read every message myself.
                         </p>
                     </div>
                 </div>
