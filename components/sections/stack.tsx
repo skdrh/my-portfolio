@@ -25,7 +25,7 @@ export function Stack() {
                         key={group.label}
                         className="reveal grid gap-3 border-b border-border py-6 sm:grid-cols-[160px_1fr] sm:gap-8"
                     >
-                        <dt className="spec-label pt-1.5">{group.label}</dt>
+                        <dt className="field pt-1.5">{group.label}</dt>
                         <dd className="flex flex-wrap gap-x-5 gap-y-2.5">
                             {group.items.map((item) => (
                                 <span

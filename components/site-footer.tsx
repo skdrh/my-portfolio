@@ -15,7 +15,7 @@ export function SiteFooter() {
                             <span className="font-display text-[15px] leading-none font-semibold tracking-[-0.03em] text-foreground">
                                 {HANDLE}
                             </span>
-                            <span aria-hidden className="h-[3px] w-4 bg-signal" />
+                            <span aria-hidden className="dimension w-5" />
                         </div>
                         <p className="mt-4 max-w-sm text-pretty text-[13.5px] leading-7 text-muted-foreground">
                             Full-stack product engineer. Offline-first systems, multi-tenant
@@ -30,7 +30,7 @@ export function SiteFooter() {
                     </div>
 
                     <nav aria-label="Footer">
-                        <p className="spec-label">Sections</p>
+                        <p className="field">Sections</p>
                         <ul className="mt-4 space-y-2.5">
                             {NAV.map((item) => (
                                 <li key={item.href}>
@@ -46,7 +46,7 @@ export function SiteFooter() {
                     </nav>
 
                     <div>
-                        <p className="spec-label">Elsewhere</p>
+                        <p className="field">Elsewhere</p>
                         <ul className="mt-4 space-y-2.5">
                             {[
                                 {label: "LinkedIn", href: SOCIALS.linkedin},

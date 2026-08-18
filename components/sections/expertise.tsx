@@ -24,7 +24,7 @@ export function Expertise() {
                         className="reveal flex flex-col bg-background p-6 sm:p-7"
                     >
                         <div className="flex items-center gap-3">
-                            <span className="index-mark">{String(i + 1).padStart(2, "0")}</span>
+                            <span className="ref">{String(i + 1).padStart(2, "0")}</span>
                             <span aria-hidden className="h-px flex-1 bg-border" />
                         </div>
 
@@ -37,7 +37,7 @@ export function Expertise() {
                         </p>
 
                         <p className="mt-5 flex items-center gap-2 font-mono text-[10.5px] tracking-[0.08em] text-faint uppercase">
-                            <span aria-hidden className="h-[3px] w-4 shrink-0 bg-signal" />
+                            <span aria-hidden className="dimension w-4 shrink-0" />
                             {cap.evidence}
                         </p>
                     </article>

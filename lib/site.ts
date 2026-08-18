@@ -86,5 +86,6 @@ export const NAV = [
     {href: "#expertise", label: "Expertise"},
     {href: "#stack", label: "Stack"},
     {href: "#experience", label: "Experience"},
+    {href: "#faq", label: "FAQ"},
     {href: "#contact", label: "Contact"},
 ] as const;

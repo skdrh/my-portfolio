@@ -46,7 +46,7 @@ export function Contact() {
     return (
         <Section
             id="contact"
-            index={6}
+            index={7}
             label="Contact"
             title="Tell me what you are building."
             intro="Serious enquiries only get serious answers, and I read every message myself. Whether it is a product to build, a system to rescue, or a role worth talking about — the fastest route is the one that suits you."
@@ -65,7 +65,7 @@ export function Contact() {
                                 >
                                     <channel.icon className="size-4 shrink-0 text-faint transition-colors group-hover:text-foreground" />
                                     <span className="min-w-0 flex-1">
-                                        <span className="spec-label block">{channel.label}</span>
+                                        <span className="field block">{channel.label}</span>
                                         <span className="mt-1 block truncate font-mono text-[12.5px] text-foreground">
                                             {channel.value}
                                         </span>

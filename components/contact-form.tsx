@@ -112,7 +112,7 @@ export function ContactForm() {
     return (
         <form onSubmit={handleSubmit} className="border border-border bg-surface">
             <div className="border-b border-border px-5 py-3.5 sm:px-6">
-                <span className="spec-label">New enquiry</span>
+                <span className="field">New enquiry</span>
             </div>
 
             <div className="space-y-5 p-5 sm:p-6">
@@ -138,7 +138,7 @@ export function ContactForm() {
                 <Field label="Company" name="company" autoComplete="organization" optional />
 
                 <fieldset>
-                    <legend className="spec-label">What is it about</legend>
+                    <legend className="field">What is it about</legend>
                     <div className="mt-3 flex flex-wrap gap-1.5">
                         {PROJECT_TYPES.map((type) => {
                             const active = projectType === type;
@@ -150,7 +150,7 @@ export function ContactForm() {
                                     aria-pressed={active}
                                     className={
                                         active
-                                            ? "border border-foreground bg-foreground px-3 py-2 font-mono text-[11px] text-background transition-colors"
+                                            ? "border border-signal-solid bg-signal-solid px-3 py-2 font-mono text-[11px] text-signal-on-solid transition-colors"
                                             : "border border-border px-3 py-2 font-mono text-[11px] text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
                                     }
                                 >
@@ -162,7 +162,7 @@ export function ContactForm() {
                 </fieldset>
 
                 <div>
-                    <label htmlFor="message" className="spec-label">
+                    <label htmlFor="message" className="field">
                         Message
                     </label>
                     <textarea
@@ -192,7 +192,7 @@ export function ContactForm() {
                 <button
                     type="submit"
                     disabled={sending}
-                    className="inline-flex h-11 w-full items-center justify-center gap-2 border border-foreground bg-foreground px-5 font-mono text-[11px] tracking-[0.08em] text-background uppercase transition-opacity hover:opacity-85 disabled:opacity-60 sm:w-auto"
+                    className="inline-flex h-11 w-full items-center justify-center gap-2 bg-signal-solid px-5 font-mono text-[11px] tracking-[0.08em] text-signal-on-solid uppercase transition-opacity hover:opacity-90 disabled:opacity-60 sm:w-auto"
                 >
                     {sending ? (
                         <>
@@ -230,7 +230,7 @@ function Field({
 }) {
     return (
         <div>
-            <label htmlFor={name} className="spec-label">
+            <label htmlFor={name} className="field">
                 {label}
                 {optional ? <span className="ml-1.5 normal-case">(optional)</span> : null}
             </label>

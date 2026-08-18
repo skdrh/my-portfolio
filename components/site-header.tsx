@@ -43,7 +43,7 @@ export function SiteHeader() {
                     <ThemeToggle />
                     <a
                         href="#contact"
-                        className="hidden h-9 items-center border border-foreground bg-foreground px-4 font-mono text-[11px] tracking-[0.08em] text-background uppercase transition-opacity hover:opacity-85 sm:inline-flex"
+                        className="hidden h-9 items-center bg-signal-solid px-4 font-mono text-[11px] tracking-[0.08em] text-signal-on-solid uppercase transition-opacity hover:opacity-90 sm:inline-flex"
                     >
                         Get in touch
                     </a>

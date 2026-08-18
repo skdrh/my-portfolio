@@ -5,74 +5,92 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    salman khan — design system
 
-   This site ships no photographs. Not one. That is a constraint, not an
-   omission: the work is systems work, and a screenshot of a dashboard says
-   less about it than the specification does. So the page is built the way a
-   spec sheet is built — numbered sections, hairline rules, tabular figures,
-   and labels set in mono like they were printed on the side of the machine.
+   The organising idea is a drafting sheet.
 
-   One accent colour, and it has a job:
+   This site ships no photographs, so the page has to carry itself on structure
+   alone. The structure it borrows is the engineering drawing: a blue ground,
+   a fine measured grid, registration ticks at the corners of anything that
+   matters, dimension rules pointing at the numbers, and every label set in a
+   drafting mono inside square brackets — the way a callout is annotated on a
+   real sheet.
 
-     signal  #b4f03c   what is live, active, running, mine
+   That is not decoration for its own sake. The pitch on this page is
+   "architecture, interface and code", and a blueprint is what the first of
+   those three actually looks like.
 
-   It never carries text on a light background — on light it lives in marks,
-   rules and fills while the words stay ink, and `--signal-ink` is the darker
-   cousin used on the rare occasion colour must be read. That single rule is
-   what keeps the dense stack lists and project registers legible.
+   One accent, and it has a job:
 
-   Geometry is deliberately hard: a 2px radius and 1px rules, sharper than
-   anything decorative. Nothing on this page is a floating card.
+     signal  #4d9bff   azure — what is live, load-bearing, mine
+
+   On light it never carries text; it lives in rules, ticks and grid lines
+   while the words stay ink, and `--signal-ink` is the darkened cousin used on
+   the rare occasion colour must be read. Hairlines are blue-tinted rather than
+   neutral grey, which is what keeps the whole surface reading as one sheet.
+
+   Geometry is hard: zero radius. Nothing here is a rounded card, because
+   nothing on a drawing is.
    ──────────────────────────────────────────────────────────────────────────── */
 
 :root {
-  /* Paper, very slightly warm — pure #fff reads clinical against the mono. */
-  --background: #fbfbf9;
-  --foreground: #0b0c0e;
+  /* Cool drafting paper — a hint of blue keeps it from going yellow next to
+     the azure, which a warm white does. */
+  --background: #f7f8fb;
+  --foreground: #0a0f1a;
 
   --surface: #ffffff;
 
-  --muted: #f4f4f1;
-  --muted-foreground: #5c6068;
-  /* Solved for 4.5:1 against both --background and --surface: this colour
-     carries every spec label, and those labels are the page's structure. */
-  --faint: #70747b;
+  --muted: #eef1f7;
+  --muted-foreground: #4f5a6e;
+  /* Solved for 4.5:1 on both --background and --surface. This colour carries
+     every bracketed label, and those labels are the page's structure. */
+  --faint: #697283;
 
-  --border: #e3e3de;
-  --border-strong: #cfcfc9;
-  --input: #d6d6d0;
-  --ring: #7fae00;
+  --border: #dde3ee;
+  --border-strong: #c3ccdd;
+  --grid-line: #e4e9f3;
+  --input: #ccd4e2;
+  --ring: #2772cc;
 
-  /* Signal — live, active, mine */
-  --signal: #8fd400;
-  --signal-ink: #4a6d00;
-  --signal-soft: #f1fadb;
-  --signal-line: #cde79a;
+  /* Signal — live, load-bearing, mine */
+  --signal: #2f80e8;
+  --signal-ink: #2772cc;
+  --signal-soft: #eaf2fd;
+  --signal-line: #b6d3f6;
+  /* Filled controls need their own pair. The azure that reads well as a rule
+     is too light to carry white text: white on #2f80e8 is 3.9:1, under AA.
+     These two are solved together — 4.5:1 in light, 6.8:1 in dark. */
+  --signal-solid: #2b76d5;
+  --signal-on-solid: #ffffff;
 
   --destructive: #b3352b;
   --destructive-soft: #fdeceb;
-
-  --radius: 2px;
 }
 
 .dark {
-  --background: #08090a;
-  --foreground: #f2f3f1;
+  /* Not black — a deep navy. The whole conceit is a blueprint. */
+  --background: #070b14;
+  --foreground: #e9edf6;
 
-  --surface: #0e1012;
+  --surface: #0d1424;
 
-  --muted: #14171a;
-  --muted-foreground: #9298a1;
-  --faint: #767c89;
+  --muted: #101a2c;
+  --muted-foreground: #909db8;
+  --faint: #737f96;
 
-  --border: rgb(255 255 255 / 10%);
-  --border-strong: rgb(255 255 255 / 18%);
-  --input: rgb(255 255 255 / 16%);
-  --ring: #b4f03c;
+  --border: rgb(120 165 255 / 14%);
+  --border-strong: rgb(120 165 255 / 26%);
+  --grid-line: rgb(120 165 255 / 7%);
+  --input: rgb(120 165 255 / 22%);
+  --ring: #4d9bff;
 
-  --signal: #b4f03c;
-  --signal-ink: #cdf76e;
-  --signal-soft: rgb(180 240 60 / 11%);
-  --signal-line: rgb(180 240 60 / 30%);
+  --signal: #4d9bff;
+  --signal-ink: #8cc0ff;
+  --signal-soft: rgb(77 155 255 / 12%);
+  --signal-line: rgb(77 155 255 / 32%);
+  /* Inverted in dark: the azure stays bright and the label goes near-black,
+     because white on a bright azure is 2.8:1 — worse than the light theme. */
+  --signal-solid: #4d9bff;
+  --signal-on-solid: #06101f;
 
   --destructive: #e2685c;
   --destructive-soft: rgb(226 104 92 / 12%);
@@ -87,22 +105,26 @@
   --color-faint: var(--faint);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
+  --color-grid-line: var(--grid-line);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-signal: var(--signal);
   --color-signal-ink: var(--signal-ink);
   --color-signal-soft: var(--signal-soft);
   --color-signal-line: var(--signal-line);
+  --color-signal-solid: var(--signal-solid);
+  --color-signal-on-solid: var(--signal-on-solid);
   --color-destructive: var(--destructive);
   --color-destructive-soft: var(--destructive-soft);
 
   --font-display: var(--font-space-grotesk);
   --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
+  --font-mono: var(--font-plex-mono);
 
-  --radius-sm: 1px;
-  --radius-md: 2px;
-  --radius-lg: 2px;
+  /* A drawing has no rounded corners. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
 }
 
 @layer base {
@@ -133,55 +155,68 @@
     font-variant-numeric: tabular-nums;
   }
 
+  /* Same pairing problem as the filled buttons — a hardcoded white here is
+     2.8:1 on the dark theme's brighter azure. */
   ::selection {
-    background: var(--signal);
-    color: #08090a;
+    background: var(--signal-solid);
+    color: var(--signal-on-solid);
   }
 
   :focus-visible {
     outline: 2px solid var(--ring);
-    outline-offset: 2px;
+    outline-offset: 3px;
   }
 }
 
 @layer components {
-  /* ── Section label ────────────────────────────────────────────────────────
-     Mono, spaced, uppercase, preceded by a small signal square. The square
-     carries the colour so the words themselves stay full-contrast ink — the
-     rule that lets this label work identically on both themes. */
-  .eyebrow {
+  /* ── Callout label ────────────────────────────────────────────────────────
+     Square brackets rather than a coloured bead: this is how an annotation is
+     marked on a drawing, the brackets take the accent, and the words inside
+     stay full-contrast ink on both themes. */
+  .callout {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 10.5px;
     line-height: 1;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--muted-foreground);
     display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
+    align-items: baseline;
+    gap: 0.45em;
   }
 
-  .eyebrow::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    flex: none;
-    background: var(--signal);
+  .callout::before,
+  .callout::after {
+    color: var(--signal-ink);
+    font-weight: 700;
   }
 
-  /* A section index — 01, 02 — set as a small mono figure. */
-  .index-mark {
+  .callout::before {
+    content: "[";
+  }
+
+  .callout::after {
+    content: "]";
+  }
+
+  .dark .callout::before,
+  .dark .callout::after {
+    color: var(--signal);
+  }
+
+  /* A drawing reference — 01, 02. */
+  .ref {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 10.5px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     color: var(--faint);
     font-variant-numeric: tabular-nums;
   }
 
-  /* ── Spec row ─────────────────────────────────────────────────────────────
-     The core repeating unit: a mono label in a fixed gutter, ink value beside
-     it. Used by the hero panel, the stack, and the project register. */
-  .spec-label {
+  /* ── Field label ──────────────────────────────────────────────────────────
+     A mono key in a fixed gutter with the value beside it. The repeating unit
+     of the profile block, the stack table and the project title-blocks. */
+  .field {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 10.5px;
     letter-spacing: 0.14em;
@@ -189,8 +224,8 @@
     color: var(--faint);
   }
 
-  /* Mono chip for technologies. Border-only — no fill, no pill. */
-  .chip {
+  /* Technology tag. Border-only, square, no fill. */
+  .tag {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 11px;
     line-height: 1;
@@ -202,8 +237,84 @@
     transition: border-color 160ms ease, color 160ms ease;
   }
 
-  .group:hover .chip {
+  .group:hover .tag {
     border-color: var(--border-strong);
+    color: var(--foreground);
+  }
+
+  /* ── Registration ticks ───────────────────────────────────────────────────
+     Corner brackets on the diagonal, the way a plate is registered on a
+     drawing. Two pseudo-elements rather than four, which is enough to read as
+     a frame without boxing the content in. */
+  .ticked {
+    position: relative;
+  }
+
+  .ticked::before,
+  .ticked::after {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    pointer-events: none;
+  }
+
+  .ticked::before {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid var(--signal);
+    border-left: 2px solid var(--signal);
+  }
+
+  .ticked::after {
+    right: -1px;
+    bottom: -1px;
+    border-right: 2px solid var(--signal);
+    border-bottom: 2px solid var(--signal);
+  }
+
+  /* ── The sheet grid ───────────────────────────────────────────────────────
+     A measured 32px grid, faint enough to sit under text. Used on the hero
+     and nowhere else, so it reads as the ground the page is drawn on rather
+     than as a texture applied everywhere. */
+  .sheet-grid {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Fades the grid out before it reaches the section edges, so there is no
+     hard line where the pattern stops. */
+  .sheet-grid-fade {
+    mask-image: radial-gradient(115% 85% at 22% 20%, #000 30%, transparent 78%);
+  }
+
+  /* ── Dimension rule ───────────────────────────────────────────────────────
+     A measurement line with serifs at both ends, pointing at the figure it
+     belongs to. Used on the at-a-glance numbers. */
+  .dimension {
+    position: relative;
+    height: 1px;
+    background: var(--signal);
+  }
+
+  .dimension::before,
+  .dimension::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    width: 1px;
+    height: 7px;
+    background: var(--signal);
+  }
+
+  .dimension::before {
+    left: 0;
+  }
+
+  .dimension::after {
+    right: 0;
   }
 
   /* A live pulse for active / available states. */

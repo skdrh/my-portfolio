@@ -41,7 +41,7 @@ export function Work() {
                         <div className="grid gap-5 py-8 lg:grid-cols-[1fr_260px] lg:gap-10">
                             <div className="min-w-0">
                                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                                    <span className="index-mark">
+                                    <span className="ref">
                                         {String(i + 1).padStart(2, "0")}
                                     </span>
                                     <span aria-hidden className="h-3 w-px bg-border" />
@@ -69,7 +69,7 @@ export function Work() {
                                 {/* The outcome, marked with the signal rule so the eye finds it
                                     even when the paragraph above is skipped — which it will be. */}
                                 <div className="mt-5 max-w-2xl border-l-2 border-signal pl-4">
-                                    <p className="spec-label">Outcome</p>
+                                    <p className="field">Outcome</p>
                                     <p className="mt-1.5 text-pretty text-[14px] leading-7 text-foreground">
                                         {item.outcome}
                                     </p>
@@ -77,7 +77,7 @@ export function Work() {
 
                                 <ul className="mt-5 flex flex-wrap gap-1.5">
                                     {item.stack.map((tech) => (
-                                        <li key={tech} className="chip">
+                                        <li key={tech} className="tag">
                                             {tech}
                                         </li>
                                     ))}
@@ -87,7 +87,7 @@ export function Work() {
                             {/* Right rail: status, my role, and the two links out. */}
                             <div className="flex flex-col gap-5 lg:border-l lg:border-border lg:pl-8">
                                 <div>
-                                    <p className="spec-label">Status</p>
+                                    <p className="field">Status</p>
                                     <p className="mt-2 flex items-center gap-2 font-mono text-[11.5px] tracking-[0.06em] text-foreground uppercase">
                                         {item.status === "In development" ? (
                                             <span
@@ -102,7 +102,7 @@ export function Work() {
                                 </div>
 
                                 <div>
-                                    <p className="spec-label">My role</p>
+                                    <p className="field">My role</p>
                                     <p className="mt-2 text-[13px] leading-6 text-muted-foreground">
                                         {item.role}
                                     </p>

@@ -1,19 +1,12 @@
 import {ArrowUpRight, Github, Linkedin, Mail} from "lucide-react";
 
-import {
-    COMPANY,
-    CONTACT_EMAIL,
-    FACTS,
-    LOCATION,
-    NAME,
-    SOCIALS,
-} from "@/lib/site";
+import {COMPANY, CONTACT_EMAIL, FACTS, LOCATION, NAME, SOCIALS} from "@/lib/site";
 
 /**
- * Where the old portfolio put a cut-out photograph, this puts a specification
- * panel: the four facts a hiring manager or a prospective client actually
- * scans for, set as mono rows. It carries the same visual weight the photo did
- * and says considerably more.
+ * Where the old portfolio put a cut-out photograph, this puts the drawing's
+ * title block: the four facts a hiring manager or a prospective client
+ * actually scans for, set as mono rows with registration ticks on the
+ * diagonal. It carries the weight the photo did and says considerably more.
  */
 const SPEC: {label: string; value: string}[] = [
     {label: "Based", value: `${LOCATION.city}, ${LOCATION.country} · ${LOCATION.timezone}`},
@@ -27,11 +20,18 @@ const PROOF = ["Offline-first", "Multi-tenant", "Bilingual / RTL", "Cross-platfo
 export function Hero() {
     return (
         <>
-            <section id="top" className="border-b border-border">
-                <div className="mx-auto w-full max-w-6xl px-4 pt-14 pb-16 sm:px-6 sm:pt-20 sm:pb-24">
+            <section id="top" className="relative overflow-hidden border-b border-border">
+                {/* The sheet the page is drawn on. Masked so it dissolves before
+                    it reaches the edges rather than stopping at a hard line. */}
+                <div
+                    aria-hidden
+                    className="sheet-grid sheet-grid-fade pointer-events-none absolute inset-0"
+                />
+
+                <div className="relative mx-auto w-full max-w-6xl px-4 pt-14 pb-16 sm:px-6 sm:pt-20 sm:pb-24">
                     <div className="grid items-start gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
                         <div className="min-w-0 animate-rise">
-                            <p className="eyebrow">{NAME} — Full-stack Product Engineer</p>
+                            <p className="callout">{NAME} — Full-stack Product Engineer</p>
 
                             <h1 className="mt-6 font-display text-[36px] leading-[1.02] font-semibold tracking-[-0.04em] text-foreground sm:text-[52px] lg:text-[60px]">
                                 I build production systems end to end.
@@ -39,11 +39,10 @@ export function Hero() {
 
                             <p className="mt-6 max-w-xl text-pretty text-[15px] leading-7 text-muted-foreground sm:text-[16.5px] sm:leading-8">
                                 From designing signage in the UAE to architecting the software
-                                businesses run on. I build the kind of system that has
-                                to keep working when the conditions are not ideal — offline,
-                                bilingual, multi-tenant, on whatever device is in front of the
-                                person using it. Architecture, interface and code, usually all
-                                three.
+                                businesses run on. I build the kind of system that has to keep
+                                working when the conditions are not ideal — offline, bilingual,
+                                multi-tenant, on whatever device is in front of the person using
+                                it. Architecture, interface and code, usually all three.
                             </p>
 
                             {/* The dividers are hidden below `sm`: once this strip wraps
@@ -69,13 +68,13 @@ export function Hero() {
                             <div className="mt-9 flex flex-wrap items-center gap-3">
                                 <a
                                     href="#work"
-                                    className="inline-flex h-11 items-center gap-2 border border-foreground bg-foreground px-5 font-mono text-[11px] tracking-[0.08em] text-background uppercase transition-opacity hover:opacity-85"
+                                    className="inline-flex h-11 items-center gap-2 bg-signal-solid px-5 font-mono text-[11px] tracking-[0.08em] text-signal-on-solid uppercase transition-opacity hover:opacity-90"
                                 >
                                     See the work
                                 </a>
                                 <a
                                     href="#contact"
-                                    className="inline-flex h-11 items-center gap-2 border border-border px-5 font-mono text-[11px] tracking-[0.08em] text-foreground uppercase transition-colors hover:border-border-strong hover:bg-muted"
+                                    className="inline-flex h-11 items-center gap-2 border border-border-strong px-5 font-mono text-[11px] tracking-[0.08em] text-foreground uppercase transition-colors hover:bg-muted"
                                 >
                                     Start a conversation
                                 </a>
@@ -112,14 +111,14 @@ export function Hero() {
                             </div>
                         </div>
 
-                        {/* The spec panel — the photograph's replacement. */}
+                        {/* Title block — the photograph's replacement. */}
                         <div
                             className="min-w-0 animate-rise lg:pl-6"
                             style={{animationDelay: "120ms"}}
                         >
-                            <div className="border border-border bg-surface">
+                            <div className="ticked border border-border-strong bg-surface">
                                 <div className="flex items-center justify-between border-b border-border px-4 py-3">
-                                    <span className="spec-label">Profile</span>
+                                    <span className="field">Profile</span>
                                     <span className="flex items-center gap-2 font-mono text-[10.5px] tracking-[0.08em] text-muted-foreground uppercase">
                                         <span className="pulse-dot" aria-hidden />
                                         Open to select work
@@ -132,7 +131,7 @@ export function Hero() {
                                             key={row.label}
                                             className="grid grid-cols-[76px_1fr] gap-3 px-4 py-3.5 sm:grid-cols-[88px_1fr]"
                                         >
-                                            <dt className="spec-label pt-0.5">{row.label}</dt>
+                                            <dt className="field pt-0.5">{row.label}</dt>
                                             <dd className="text-[13.5px] leading-6 text-foreground">
                                                 {row.value}
                                             </dd>
@@ -157,13 +156,15 @@ export function Hero() {
                 </div>
             </section>
 
-            {/* The four figures the rest of the page keeps coming back to. */}
-            <section aria-label="At a glance" className="border-b border-border">
+            {/* The four figures the rest of the page keeps coming back to, each
+                under a dimension rule — the measurement line of a drawing,
+                serifed at both ends. */}
+            <section aria-label="At a glance" className="border-b border-border bg-muted/40">
                 <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
                     <div className="grid grid-cols-2 gap-x-8 gap-y-7 py-9 sm:gap-x-12 lg:grid-cols-4">
                         {FACTS.map((fact) => (
-                            <div key={fact.label} className="flex flex-col gap-2.5">
-                                <span aria-hidden className="h-[3px] w-6 bg-signal" />
+                            <div key={fact.label} className="flex flex-col gap-3">
+                                <span aria-hidden className="dimension w-8" />
                                 <span className="tabular font-mono text-[21px] leading-none font-bold text-foreground">
                                     {fact.figure}
                                 </span>

@@ -45,7 +45,7 @@ export function MobileNav() {
             {open ? (
                 <div className="fixed inset-0 z-50 bg-background lg:hidden">
                     <div className="flex h-16 items-center justify-between border-b border-border px-4 sm:px-6">
-                        <span className="eyebrow">Menu</span>
+                        <span className="callout">Menu</span>
                         <button
                             type="button"
                             onClick={() => setOpen(false)}
@@ -64,7 +64,7 @@ export function MobileNav() {
                                 onClick={() => setOpen(false)}
                                 className="flex items-baseline gap-4 border-b border-border px-4 py-5 transition-colors hover:bg-muted sm:px-6"
                             >
-                                <span className="index-mark">{String(i + 1).padStart(2, "0")}</span>
+                                <span className="ref">{String(i + 1).padStart(2, "0")}</span>
                                 <span className="font-display text-[22px] font-semibold tracking-[-0.03em] text-foreground">
                                     {item.label}
                                 </span>
@@ -73,7 +73,7 @@ export function MobileNav() {
                     </nav>
 
                     <div className="px-4 py-6 sm:px-6">
-                        <p className="spec-label">Direct</p>
+                        <p className="field">Direct</p>
                         <a
                             href={`mailto:${CONTACT_EMAIL}`}
                             className="mt-2 block font-mono text-[13px] break-all text-foreground underline decoration-signal decoration-2 underline-offset-4"

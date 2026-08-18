@@ -1,10 +1,12 @@
 import {ARCHIVE} from "@/data/archive";
+import {FAQS} from "@/data/faq";
 import {WORK} from "@/data/work";
 import {
     CAREER_START,
     COMPANY,
     CONTACT_EMAIL,
     LOCATION,
+    HANDLE,
     NAME,
     ROLE,
     SITE_DESCRIPTION,
@@ -32,6 +34,7 @@ export function personSchema() {
         "@type": "Person",
         "@id": PERSON_ID,
         name: NAME,
+        alternateName: [HANDLE, "skdrh"],
         url: SITE_URL,
         jobTitle: ROLE,
         description: SITE_DESCRIPTION,
@@ -84,6 +87,50 @@ export function personSchema() {
                 addressCountry: LOCATION.countryCode,
             },
         },
+    };
+}
+
+/**
+ * dragondevs as a node in this graph.
+ *
+ * `worksFor` above points at `${COMPANY.url}/#organization`. Referencing an
+ * @id that exists only on another domain leaves a dangling edge, so the same
+ * node is declared here with the identical @id — the two reconcile, and a
+ * crawler reading only this page still resolves the employment relationship.
+ */
+export function organizationSchema() {
+    return {
+        "@type": "Organization",
+        "@id": ORG_ID,
+        name: COMPANY.name,
+        url: COMPANY.url,
+        description:
+            "dragondevs builds SEO-friendly websites, custom software and full-stack web apps, taking products from idea to deployment.",
+        founder: {"@id": PERSON_ID},
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: LOCATION.city,
+            addressCountry: LOCATION.countryCode,
+        },
+    };
+}
+
+/**
+ * FAQPage, generated from the same array the section renders.
+ *
+ * Google requires every answer marked up here to be visible on the page. It
+ * is — the <details> elements ship their text in the DOM whether open or not —
+ * so this is eligible rather than a manual-action risk.
+ */
+export function faqSchema() {
+    return {
+        "@type": "FAQPage",
+        "@id": `${SITE_URL}/#faq`,
+        mainEntity: FAQS.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: {"@type": "Answer", text: item.a},
+        })),
     };
 }
 
@@ -181,22 +228,36 @@ export function jsonLdGraph(...nodes: object[]) {
 
 /** Keyword set for <meta name="keywords">, and a useful record of intent. */
 export const KEYWORDS = [
+    // Brand — the queries that should land here first.
     "Salman Khan developer",
-    "full-stack developer Pakistan",
+    "Salman Khan engineer",
+    "Salman Khan dragondevs",
+    "skdrh",
+    "dragondevs founder",
+    // Role
     "full-stack product engineer",
-    "Next.js developer",
-    "TypeScript developer",
+    "full-stack developer Pakistan",
+    "software engineer Islamabad",
     "React developer Islamabad",
+    "Next.js developer Pakistan",
+    "TypeScript developer",
+    "Django developer Pakistan",
+    // Specialism — the differentiated, low-competition terms
     "offline-first developer",
     "local-first software engineer",
-    "multi-tenant SaaS developer",
+    "offline first app developer",
     "Tauri developer",
-    "Django developer",
-    "hire full-stack engineer",
-    "freelance software engineer Pakistan",
+    "multi-tenant SaaS developer",
     "bilingual RTL web developer",
-    "dragondevs",
-];
+    "Arabic English web developer",
+    "headless commerce developer",
+    // Intent
+    "hire full-stack engineer",
+    "hire offline-first developer",
+    "freelance software engineer Pakistan",
+    "remote full-stack engineer UTC+5",
+    "inventory POS software developer",
+]
 
 /** Earliest year on the timeline — used for the copyright range in the footer. */
 export const FOUNDED = CAREER_START;

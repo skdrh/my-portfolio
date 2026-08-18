@@ -3,12 +3,13 @@ import type {ReactNode} from "react";
 import {cn} from "@/lib/utils";
 
 /**
- * The page is one long specification document, and this is its section rule.
+ * Every section opens with a title block, the way a drawing sheet does.
  *
- * Every section carries a number and a mono label in a narrow left gutter,
- * with the content in the wide column beside it — the layout of a datasheet.
- * Below `lg` the gutter collapses and the label sits above the content, which
- * is the only responsive behaviour any section needs.
+ * A rule runs the full width with the sheet reference sitting on it — number,
+ * then the bracketed callout — and the heading hangs below at full measure.
+ * The content then gets the entire column rather than being pushed into a
+ * narrow track by a sticky gutter, which is what lets the project register and
+ * the stack table breathe at the widths they actually need.
  */
 export function Section({
     id,
@@ -18,49 +19,42 @@ export function Section({
     intro,
     children,
     className,
-    bare = false,
 }: {
     id: string;
     /** Zero-padded on render — pass 1, get "01". */
     index: number;
     label: string;
-    title?: string;
+    title: string;
     intro?: ReactNode;
     children: ReactNode;
     className?: string;
-    /** Skip the heading block entirely and render only the gutter + children. */
-    bare?: boolean;
 }) {
     return (
         <section id={id} className={cn("scroll-mt-16 border-b border-border", className)}>
             <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-                <div className="grid gap-8 lg:grid-cols-[168px_1fr] lg:gap-12">
-                    {/* Gutter: index above label, both mono, both quiet. */}
-                    <div className="lg:sticky lg:top-24 lg:self-start">
-                        <div className="flex items-center gap-3 lg:flex-col lg:items-start lg:gap-3">
-                            <span className="index-mark">{String(index).padStart(2, "0")}</span>
-                            <span aria-hidden className="h-3 w-px bg-border lg:hidden" />
-                            <span className="eyebrow">{label}</span>
-                        </div>
+                {/* Title block: reference on the rule, heading beneath it. */}
+                <header className="reveal">
+                    <div className="flex items-center gap-4">
+                        <span className="ref shrink-0">
+                            {String(index).padStart(2, "0")}
+                        </span>
+                        <span className="callout shrink-0">{label}</span>
+                        <span aria-hidden className="h-px flex-1 bg-border" />
                     </div>
 
-                    <div className="min-w-0">
-                        {!bare && title ? (
-                            <div className="reveal mb-10 max-w-2xl">
-                                <h2 className="font-display text-[26px] leading-[1.1] font-semibold tracking-[-0.035em] text-foreground sm:text-[34px]">
-                                    {title}
-                                </h2>
-                                {intro ? (
-                                    <p className="mt-4 text-pretty text-[14.5px] leading-7 text-muted-foreground sm:text-[15px]">
-                                        {intro}
-                                    </p>
-                                ) : null}
-                            </div>
+                    <div className="mt-7 grid gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+                        <h2 className="font-display text-[28px] leading-[1.06] font-semibold tracking-[-0.04em] text-foreground sm:text-[38px]">
+                            {title}
+                        </h2>
+                        {intro ? (
+                            <p className="text-pretty text-[14.5px] leading-7 text-muted-foreground sm:text-[15px]">
+                                {intro}
+                            </p>
                         ) : null}
-
-                        {children}
                     </div>
-                </div>
+                </header>
+
+                <div className="mt-12">{children}</div>
             </div>
         </section>
     );

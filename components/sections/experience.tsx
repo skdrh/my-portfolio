@@ -48,7 +48,7 @@ export function Experience() {
                             </p>
                             <ul className="mt-4 flex flex-wrap gap-1.5">
                                 {role.tags.map((tag) => (
-                                    <li key={tag} className="chip">
+                                    <li key={tag} className="tag">
                                         {tag}
                                     </li>
                                 ))}
