@@ -5,9 +5,9 @@ Personal site for Salman Khan — full-stack product engineer, founder of
 
 One page, no photographs, no trackers. Next.js 16, React 19, Tailwind CSS 4.
 
-Laid out like a drafting sheet: a blueprint grid, bracketed callouts, dimension
-rules and registration ticks, on the theory that a page about building systems
-should look like the drawing of one.
+Laid out like a drafting sheet: a blueprint grid, bracketed callouts and
+registration ticks, on the theory that a page about building systems should
+look like the drawing of one.
 
 ---
 
@@ -75,9 +75,8 @@ The organising idea is a **drafting sheet**:
   measured 32px grid under the hero and blue-tinted hairlines everywhere, so
   the whole surface reads as one sheet.
 - **Drafting motifs that mean something.** Labels sit in square brackets like
-  callouts on a drawing (`[ SELECTED WORK ]`), figures sit under dimension
-  rules serifed at both ends, and the profile block carries registration ticks
-  on the diagonal.
+  callouts on a drawing (`[ SELECTED WORK ]`), and the profile block carries
+  registration ticks on the diagonal.
 - **One accent** — `--signal`, an azure — meaning *live, load-bearing, mine*.
   On light it never carries text; it lives in rules, ticks and grid lines while
   the words stay ink. Filled controls use the separate `--signal-solid` /

@@ -156,15 +156,14 @@ export function Hero() {
                 </div>
             </section>
 
-            {/* The four figures the rest of the page keeps coming back to, each
-                under a dimension rule — the measurement line of a drawing,
-                serifed at both ends. */}
+            {/* The four figures the rest of the page keeps coming back to,
+                each under the same plain dash the wordmark carries. */}
             <section aria-label="At a glance" className="border-b border-border bg-muted/40">
                 <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
                     <div className="grid grid-cols-2 gap-x-8 gap-y-7 py-9 sm:gap-x-12 lg:grid-cols-4">
                         {FACTS.map((fact) => (
                             <div key={fact.label} className="flex flex-col gap-3">
-                                <span aria-hidden className="dimension w-8" />
+                                <span aria-hidden className="h-[3px] w-8 bg-signal" />
                                 <span className="tabular font-mono text-[21px] leading-none font-bold text-foreground">
                                     {fact.figure}
                                 </span>

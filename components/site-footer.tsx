@@ -15,7 +15,7 @@ export function SiteFooter() {
                             <span className="font-display text-[15px] leading-none font-semibold tracking-[-0.03em] text-foreground">
                                 {HANDLE}
                             </span>
-                            <span aria-hidden className="dimension w-5" />
+                            <span aria-hidden className="h-[3px] w-5 bg-signal" />
                         </div>
                         <p className="mt-4 max-w-sm text-pretty text-[13.5px] leading-7 text-muted-foreground">
                             Full-stack product engineer. Offline-first systems, multi-tenant

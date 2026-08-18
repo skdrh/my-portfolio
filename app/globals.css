@@ -10,9 +10,8 @@
    This site ships no photographs, so the page has to carry itself on structure
    alone. The structure it borrows is the engineering drawing: a blue ground,
    a fine measured grid, registration ticks at the corners of anything that
-   matters, dimension rules pointing at the numbers, and every label set in a
-   drafting mono inside square brackets — the way a callout is annotated on a
-   real sheet.
+   matters, and every label set in a drafting mono inside square brackets —
+   the way a callout is annotated on a real sheet.
 
    That is not decoration for its own sake. The pitch on this page is
    "architecture, interface and code", and a blueprint is what the first of
@@ -290,32 +289,6 @@
     mask-image: radial-gradient(115% 85% at 22% 20%, #000 30%, transparent 78%);
   }
 
-  /* ── Dimension rule ───────────────────────────────────────────────────────
-     A measurement line with serifs at both ends, pointing at the figure it
-     belongs to. Used on the at-a-glance numbers. */
-  .dimension {
-    position: relative;
-    height: 1px;
-    background: var(--signal);
-  }
-
-  .dimension::before,
-  .dimension::after {
-    content: "";
-    position: absolute;
-    top: -3px;
-    width: 1px;
-    height: 7px;
-    background: var(--signal);
-  }
-
-  .dimension::before {
-    left: 0;
-  }
-
-  .dimension::after {
-    right: 0;
-  }
 
   /* A live pulse for active / available states. */
   .pulse-dot {

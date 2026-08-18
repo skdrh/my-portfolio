@@ -103,7 +103,7 @@ export default function Image() {
                     </div>
                 </div>
 
-                {/* Capability marks over dimension rules. */}
+                {/* Capability marks, each over the same plain dash. */}
                 <div style={{display: "flex", alignItems: "center", gap: 34}}>
                     {marks.map((mark) => (
                         <div

@@ -37,7 +37,7 @@ export function Expertise() {
                         </p>
 
                         <p className="mt-5 flex items-center gap-2 font-mono text-[10.5px] tracking-[0.08em] text-faint uppercase">
-                            <span aria-hidden className="dimension w-4 shrink-0" />
+                            <span aria-hidden className="h-[3px] w-4 shrink-0 bg-signal" />
                             {cap.evidence}
                         </p>
                     </article>
