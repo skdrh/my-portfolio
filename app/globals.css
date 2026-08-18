@@ -1,65 +1,275 @@
-@import "generatedTheme.css";
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@custom-variant dark (&:is(.dark *));
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   salman khan — design system
 
-@layer base {
-  :root {
-    --background: var(--background-custom);
-    --foreground: var(--foreground-custom);
-    --card: var(--card-custom);
-    --card-foreground: var(--card-foreground-custom);
-    --popover: var(--popover-custom);
-    --popover-foreground: var(--popover-foreground-custom);
-    --primary: var(--primary-custom);
-    --primary-foreground: var(--primary-foreground-custom);
-    --secondary: var(--secondary-custom);
-    --secondary-foreground: var(--secondary-foreground-custom);
-    --muted: var(--muted-custom);
-    --muted-foreground: var(--muted-foreground-custom);
-    --accent: var(--accent-custom);
-    --accent-foreground: var(--accent-foreground-custom);
-    --destructive: var(--destructive-custom);
-    --destructive-foreground: var(--destructive-foreground-custom);
-    --border: var(--border-custom);
-    --input: var(--input-custom);
-    --ring: var(--ring-custom);
-    --radius: var(--radius-custom);
-  }
+   This site ships no photographs. Not one. That is a constraint, not an
+   omission: the work is systems work, and a screenshot of a dashboard says
+   less about it than the specification does. So the page is built the way a
+   spec sheet is built — numbered sections, hairline rules, tabular figures,
+   and labels set in mono like they were printed on the side of the machine.
 
-  .dark {
-    --background: var(--background-custom-dark);
-    --foreground: var(--foreground-custom-dark);
-    --card: var(--card-custom-dark);
-    --card-foreground: var(--card-foreground-custom-dark);
-    --popover: var(--popover-custom-dark);
-    --popover-foreground: var(--popover-foreground-custom-dark);
-    --primary: var(--primary-custom-dark);
-    --primary-foreground: var(--primary-foreground-custom-dark);
-    --secondary: var(--secondary-custom-dark);
-    --secondary-foreground: var(--secondary-foreground-custom-dark);
-    --muted: var(--muted-custom-dark);
-    --muted-foreground: var(--muted-foreground-custom-dark);
-    --accent: var(--accent-custom-dark);
-    --accent-foreground: var(--accent-foreground-custom-dark);
-    --destructive: var(--destructive-custom-dark);
-    --destructive-foreground: var(--destructive-foreground-custom-dark);
-    --border: var(--border-custom-dark);
-    --input: var(--input-custom-dark);
-    --ring: var(--ring-custom-dark);
-  }
+   One accent colour, and it has a job:
+
+     signal  #b4f03c   what is live, active, running, mine
+
+   It never carries text on a light background — on light it lives in marks,
+   rules and fills while the words stay ink, and `--signal-ink` is the darker
+   cousin used on the rare occasion colour must be read. That single rule is
+   what keeps the dense stack lists and project registers legible.
+
+   Geometry is deliberately hard: a 2px radius and 1px rules, sharper than
+   anything decorative. Nothing on this page is a floating card.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Paper, very slightly warm — pure #fff reads clinical against the mono. */
+  --background: #fbfbf9;
+  --foreground: #0b0c0e;
+
+  --surface: #ffffff;
+
+  --muted: #f4f4f1;
+  --muted-foreground: #5c6068;
+  /* Solved for 4.5:1 against both --background and --surface: this colour
+     carries every spec label, and those labels are the page's structure. */
+  --faint: #70747b;
+
+  --border: #e3e3de;
+  --border-strong: #cfcfc9;
+  --input: #d6d6d0;
+  --ring: #7fae00;
+
+  /* Signal — live, active, mine */
+  --signal: #8fd400;
+  --signal-ink: #4a6d00;
+  --signal-soft: #f1fadb;
+  --signal-line: #cde79a;
+
+  --destructive: #b3352b;
+  --destructive-soft: #fdeceb;
+
+  --radius: 2px;
+}
+
+.dark {
+  --background: #08090a;
+  --foreground: #f2f3f1;
+
+  --surface: #0e1012;
+
+  --muted: #14171a;
+  --muted-foreground: #9298a1;
+  --faint: #767c89;
+
+  --border: rgb(255 255 255 / 10%);
+  --border-strong: rgb(255 255 255 / 18%);
+  --input: rgb(255 255 255 / 16%);
+  --ring: #b4f03c;
+
+  --signal: #b4f03c;
+  --signal-ink: #cdf76e;
+  --signal-soft: rgb(180 240 60 / 11%);
+  --signal-line: rgb(180 240 60 / 30%);
+
+  --destructive: #e2685c;
+  --destructive-soft: rgb(226 104 92 / 12%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-faint: var(--faint);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-signal: var(--signal);
+  --color-signal-ink: var(--signal-ink);
+  --color-signal-soft: var(--signal-soft);
+  --color-signal-line: var(--signal-line);
+  --color-destructive: var(--destructive);
+  --color-destructive-soft: var(--destructive-soft);
+
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
+  * {
+    border-color: var(--border);
+  }
 
-    body {
-        font-family: 'Inter', sans-serif;
-        @apply bg-background text-foreground;
-    }
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv05", "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  /* Every number on this page is meant to be compared with the one below it. */
+  .tabular, th, td, time {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: #08090a;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
 }
 
+@layer components {
+  /* ── Section label ────────────────────────────────────────────────────────
+     Mono, spaced, uppercase, preceded by a small signal square. The square
+     carries the colour so the words themselves stay full-contrast ink — the
+     rule that lets this label work identically on both themes. */
+  .eyebrow {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 10.5px;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    flex: none;
+    background: var(--signal);
+  }
+
+  /* A section index — 01, 02 — set as a small mono figure. */
+  .index-mark {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Spec row ─────────────────────────────────────────────────────────────
+     The core repeating unit: a mono label in a fixed gutter, ink value beside
+     it. Used by the hero panel, the stack, and the project register. */
+  .spec-label {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* Mono chip for technologies. Border-only — no fill, no pill. */
+  .chip {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--muted-foreground);
+    border: 1px solid var(--border);
+    padding: 5px 7px;
+    white-space: nowrap;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  .group:hover .chip {
+    border-color: var(--border-strong);
+  }
+
+  /* A live pulse for active / available states. */
+  .pulse-dot {
+    position: relative;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    flex: none;
+    background: var(--signal);
+  }
+
+  .pulse-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--signal);
+    animation: sk-pulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@layer utilities {
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+@keyframes sk-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0; transform: scale(2.6); }
+}
+
+/* ─── Motion ─────────────────────────────────────────────────────────────────
+   One entrance behaviour, used sparingly: content lifts a few pixels as it
+   enters the viewport. Implemented with a scroll-driven animation so there is
+   no observer, no JavaScript and no hydration cost. Browsers without support
+   simply show the content — which is the correct fallback, and also what
+   anyone asking for reduced motion gets. */
+
+@keyframes sk-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-rise {
+  animation: sk-rise 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: sk-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .animate-rise, .reveal, .pulse-dot::after { animation: none; }
+
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

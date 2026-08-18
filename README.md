@@ -1,99 +1,98 @@
-# My Portfolio
+# salman.dragondevs.co
 
-My Portfolio is an open-source project for creating personalized web portfolios. Download, edit, and upload to your domain 
-with ease. Showcase your talents and achievements your way, you are welcome to use it :)
+Personal site for Salman Khan — full-stack product engineer, founder of
+[dragondevs](https://dragondevs.co).
 
-## Key Features
+One page, no photographs, no trackers. Next.js 16, React 19, Tailwind CSS 4.
 
-- **Personalized Portfolios:** Create customized web portfolios to showcase your talents and achievements.
-- **Flexible Deployment:** Upload your portfolio to your domain effortlessly.
-- **Responsive Design:** Ensure your portfolio looks great on all devices with responsive design.
-- **Open Source:** Built on open-source technologies, making it easy to modify and adapt to your needs.
+---
 
-## Getting Started
+## Running it
 
-To get started with My Portfolio, follow these steps:
-
-**Clone the Repository:**
-```bash
-git clone https://github.com/dragon-devs/my-portfolio.git
-```
-Then go to: 
-```bash
-cd my-portfolio
-```
-Then go change_data directory where you can add you details.
-```
-cd change_data
-```
-There are 2 files one is `hero_section.json` where you will fill your details.
-The other one is `projects.json` for projects details your previous that you want to showcase.
-and add the projects images in the `public` directory there is another directory name `projects` then projects follow 
-the sequence as it shown in the provided example.
-
-**You can change the `portfolio_hero.png` add your picture for hero section (optional)**
-
-<img width=250 src="public/README.png" alt="Readme.png">
-
-**Edit and Customize:**
-
-Customize the portfolio to your liking by editing the provided templates and content. after cloning:
 ```bash
 npm install
-```
-Then run:
-```bash
 npm run dev
 ```
-visit: [http://localhost:3000](http://localhost:3000)
 
+Then <http://localhost:3000>.
 
-**Deploy to Your Domain:**
-
-Upload the customized portfolio to your domain or hosting provider :)
-
-### Customize your theme:
-go to `change_data` open the `theme.json`:
 ```bash
-{
-    "theme": "blue", // you can change this to any available color you want.
-    "radius": "0.5rem" // change the value for radius of the elements as you want.
-}
+npm run build     # production build
+npm start         # serve the build
+npm run lint      # eslint
 ```
-**Available Colors:**
-```bash
-    theme: "white" | "blue" | "red" | "rose" | "yellow" | "orange" | "green" | "purple",
+
+## The contact form needs environment variables
+
+This is the one thing that will bite you. Copy `.env.example` to `.env.local`
+and fill in the SMTP values, and set the same variables in **Vercel → Settings
+→ Environment Variables**, then redeploy.
+
+| Variable       | Purpose                                          |
+| -------------- | ------------------------------------------------ |
+| `SMTP_HOST`    | e.g. `smtp.gmail.com`, `smtp.mailgun.org`        |
+| `SMTP_PORT`    | `587` for STARTTLS, `465` for implicit TLS       |
+| `SMTP_USER`    | SMTP username                                     |
+| `SMTP_PASS`    | SMTP password — a Gmail **app password**, not the account password |
+| `CONTACT_TO`   | Inbox that receives enquiries                     |
+| `CONTACT_FROM` | From-address; defaults to `SMTP_USER`             |
+
+Without them `/api/contact` returns `503` and the form tells the visitor to
+email directly rather than pretending to have sent. Check the server logs for
+`[contact] SMTP is not configured` — it names exactly which variable is
+missing.
+
+## Editing the content
+
+There is no CMS and no admin. Everything is typed data in two folders:
+
+| File                  | What it holds                                          |
+| --------------------- | ------------------------------------------------------ |
+| `lib/site.ts`         | Name, role, domain, email, socials, the four headline figures, nav |
+| `data/work.ts`        | The four case-studied systems, linked to dragondevs.co  |
+| `data/expertise.ts`   | Capabilities, each naming the work that evidences it    |
+| `data/stack.ts`       | Technologies grouped by job; `core: true` marks defaults |
+| `data/experience.ts`  | The timeline                                            |
+| `data/archive.ts`     | Earlier open-source work                                |
+| `lib/seo.ts`          | JSON-LD schemas and the keyword set                     |
+
+Changing `SITE_URL` in `lib/site.ts` updates the canonical URL, sitemap,
+robots.txt, Open Graph tags and structured data together.
+
+## Design system
+
+`app/globals.css` holds it, and the comment at the top explains the reasoning.
+The short version:
+
+- **No imagery.** The work is systems work; a dashboard screenshot at thumbnail
+  size proves nothing. The page is laid out like a specification sheet instead —
+  numbered sections, hairline rules, tabular figures, mono labels.
+- **One accent** (`--signal`, a phosphor lime) meaning *live, active, mine*. It
+  never carries text on a light background; it lives in marks, rules and fills
+  while the words stay ink.
+- **Three typefaces, three jobs.** Space Grotesk for headings, Inter for
+  paragraphs, JetBrains Mono for anything that behaves like data.
+- **Hard geometry.** 2px radius, 1px rules. Nothing floats.
+- **One motion behaviour** — a scroll-driven rise on section entry, done in CSS
+  with `animation-timeline: view()`. No observer, no JS, and it degrades to
+  simply showing the content.
+
+## Structure
+
 ```
-select one of the provide colors then run:
-```bash
-npm run generate-theme
+app/
+  layout.tsx              fonts, metadata, JSON-LD, theme provider
+  page.tsx                section composition
+  opengraph-image.tsx     share card, generated from type
+  robots.ts  sitemap.ts
+  api/contact/route.ts    SMTP delivery
+components/
+  section.tsx             the numbered-section shell every section uses
+  sections/               hero, work, expertise, stack, experience, archive, contact
+data/                     all page content
+lib/                      site.ts (identity), seo.ts (schemas), utils.ts
 ```
-you will see the changes immediately. if not working [open an issue](https://github.com/dragon-devs/my-portfolio/issues).
 
-### Experience Timeline:
-inside the `change_data` directory there is a new file name `experience.json`
-```bash
-cd change_data
-experience.json
-```
-now you can add your experience edit the file name: `experience.json` fill it with your data. save it.
-## Contributing
+## Licence
 
-Contributions are welcome! If you'd like to contribute to My Portfolio, please follow these guidelines:
-
-- Fork the repository and create your branch from `main`.
-- Make sure your code adheres to the established code style.
-- Ensure your commits are descriptive and well-documented.
-- Open a pull request, describing the changes you've made.
-
-## License
-
-My Portfolio is licensed under the [MIT License](LICENSE).
-
-## Support
-
-For support, bug reports, or feature requests, please [open an issue](https://github.com/dragon-devs/my-portfolio/issues).
-
-## About
-
-My Portfolio is developed and maintained by [dragon-devs](https://dragon-devs.vercel.app).
+MIT — see [LICENSE](LICENSE).
