@@ -49,10 +49,11 @@ export function SiteFooter() {
                         <p className="field">Elsewhere</p>
                         <ul className="mt-4 space-y-2.5">
                             {[
+                                {label: "X", href: SOCIALS.x},
                                 {label: "LinkedIn", href: SOCIALS.linkedin},
                                 {label: "GitHub", href: SOCIALS.github},
-                                {label: "X", href: SOCIALS.x},
                                 {label: COMPANY.name, href: COMPANY.url},
+                                {label: `${COMPANY.name} on X`, href: COMPANY.x},
                             ].map((link) => (
                                 <li key={link.label}>
                                     <a

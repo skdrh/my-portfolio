@@ -1,5 +1,6 @@
-import {ArrowUpRight, Github, Linkedin, Mail} from "lucide-react";
+import {ArrowUpRight, Mail} from "lucide-react";
 
+import {GitHubIcon, LinkedInIcon, XIcon} from "@/components/brand-icons";
 import {COMPANY, CONTACT_EMAIL, FACTS, NAME, SOCIALS, TIMEZONE} from "@/lib/site";
 
 /**
@@ -84,12 +85,22 @@ export function Hero() {
 
                             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
                                 <a
+                                    href={SOCIALS.x}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="group inline-flex items-center gap-2 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground"
+                                >
+                                    <XIcon className="size-3.5" />
+                                    X
+                                    <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
+                                </a>
+                                <a
                                     href={SOCIALS.linkedin}
                                     target="_blank"
                                     rel="noreferrer noopener"
                                     className="group inline-flex items-center gap-2 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground"
                                 >
-                                    <Linkedin className="size-3.5" />
+                                    <LinkedInIcon className="size-3.5" />
                                     LinkedIn
                                     <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
                                 </a>
@@ -99,7 +110,7 @@ export function Hero() {
                                     rel="noreferrer noopener"
                                     className="group inline-flex items-center gap-2 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground"
                                 >
-                                    <Github className="size-3.5" />
+                                    <GitHubIcon className="size-3.5" />
                                     GitHub
                                     <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
                                 </a>
