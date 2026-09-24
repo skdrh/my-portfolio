@@ -1,14 +1,17 @@
-import {ARCHIVE} from "@/data/archive";
+import {BUILT} from "@/data/built";
 import {FAQS} from "@/data/faq";
 import {WORK} from "@/data/work";
 import {
+    ALIAS,
     CAREER_START,
     COMPANY,
     CONTACT_EMAIL,
     HANDLE,
     NAME,
+    PORTRAIT,
     ROLE,
     SITE_DESCRIPTION,
+    SITE_TITLE,
     SITE_URL,
     SOCIALS,
 } from "@/lib/site";
@@ -28,49 +31,82 @@ import {
 
 const PERSON_ID = `${SITE_URL}/#person`;
 const SITE_ID = `${SITE_URL}/#website`;
+const PORTRAIT_ID = `${SITE_URL}/#portrait`;
 const ORG_ID = `${COMPANY.url}/#organization`;
+
+/** Absolute URL of the portrait — what crawlers and share cards fetch. */
+export const PORTRAIT_URL = `${SITE_URL}${PORTRAIT.src}`;
+
+/**
+ * The portrait as its own node, so the Person (`image`) and the page
+ * (`primaryImageOfPage`) point at one image rather than describing it twice.
+ * The caption carries the full name and the handle: that pairing is what lets
+ * an image search for "Salman Khan skdrh" resolve to this person.
+ */
+export function portraitSchema() {
+    return {
+        "@type": "ImageObject",
+        "@id": PORTRAIT_ID,
+        url: PORTRAIT_URL,
+        contentUrl: PORTRAIT_URL,
+        width: PORTRAIT.width,
+        height: PORTRAIT.height,
+        caption: PORTRAIT.caption,
+        description: PORTRAIT.alt,
+        representativeOfPage: true,
+    };
+}
 
 export function personSchema() {
     return {
         "@type": "Person",
         "@id": PERSON_ID,
         name: NAME,
-        alternateName: [HANDLE, "skdrh"],
+        givenName: "Salman",
+        familyName: "Khan",
+        alternateName: [ALIAS, HANDLE, `${NAME} (${ALIAS})`],
         url: SITE_URL,
+        image: {"@id": PORTRAIT_ID},
         // Several titles rather than one: the work spans architecture,
         // engineering and running the company, and each is a distinct query.
-        jobTitle: [ROLE, "Software Architect", "Full-stack Engineer", "Founder"],
+        jobTitle: ["Software Architect", "Product Builder", "Full-stack Engineer", "Founder"],
         description: SITE_DESCRIPTION,
         email: `mailto:${CONTACT_EMAIL}`,
-        // Only real, in-use profiles. A dead link here is worse than none.
-        sameAs: [SOCIALS.github, SOCIALS.linkedin, SOCIALS.x, COMPANY.url],
+        // Profiles of the person only. The company is related through
+        // `worksFor`, not claimed as another name for the same person.
+        sameAs: [SOCIALS.x, SOCIALS.linkedin, SOCIALS.github],
+        // Named inline as well as by @id: this node ships in the layout's
+        // block and the full Organization in the page's, and a reader that
+        // does not join the two should still know who the employer is.
         worksFor: {
             "@type": "Organization",
             "@id": ORG_ID,
             name: COMPANY.name,
             url: COMPANY.url,
         },
-        // Mirrors the Expertise section — these are claims the page backs up.
+        // Each of these is backed by something on the page — a case study,
+        // a current project, or the toolbox.
         knowsAbout: [
             "Software architecture",
-            "Scalable system design",
-            "Product architecture",
-            "Go-to-market strategy",
-            "SaaS pricing and licensing",
-            "Offline-first software architecture",
-            "Local-first data synchronisation",
-            "Multi-tenant SaaS architecture",
+            "Product development",
             "Full-stack web development",
-            "Bilingual and right-to-left interface design",
+            "Offline-first software",
+            "Multi-tenant SaaS",
+            "Inventory and point-of-sale software",
             "Headless e-commerce",
-            "Cross-platform application development",
+            "Bilingual and right-to-left interfaces",
+            "Cross-platform app development",
+            "Deployment and DevOps",
+            "AI integration",
             "TypeScript",
             "Next.js",
             "React",
+            "Node.js",
             "Python",
             "Django",
             "PostgreSQL",
             "Tauri",
+            "Flutter",
         ],
         knowsLanguage: ["en", "ur"],
         hasOccupation: {
@@ -83,10 +119,9 @@ export function personSchema() {
 /**
  * dragondevs as a node in this graph.
  *
- * `worksFor` above points at `${COMPANY.url}/#organization`. Referencing an
- * @id that exists only on another domain leaves a dangling edge, so the same
- * node is declared here with the identical @id — the two reconcile, and a
- * crawler reading only this page still resolves the employment relationship.
+ * `worksFor` above points at `${COMPANY.url}/#organization`, the same @id the
+ * dragondevs site declares — and that site names this page's Person as its
+ * founder under this page's @id. The two graphs reconcile in both directions.
  */
 export function organizationSchema() {
     return {
@@ -97,6 +132,7 @@ export function organizationSchema() {
         description:
             "dragondevs builds SEO-friendly websites, custom software and full-stack web apps, taking products from idea to deployment.",
         founder: {"@id": PERSON_ID},
+        sameAs: COMPANY.sameAs,
     };
 }
 
@@ -124,7 +160,10 @@ export function websiteSchema() {
         "@type": "WebSite",
         "@id": SITE_ID,
         url: SITE_URL,
-        name: `${NAME} — ${ROLE}`,
+        // The site name Google shows above the result. Short, and carrying the
+        // handle so it cannot be read as anyone else's site.
+        name: `${NAME} (${ALIAS})`,
+        alternateName: [ALIAS, NAME],
         description: SITE_DESCRIPTION,
         inLanguage: "en",
         publisher: {"@id": PERSON_ID},
@@ -136,10 +175,13 @@ export function profilePageSchema() {
         "@type": "ProfilePage",
         "@id": `${SITE_URL}/#profilepage`,
         url: SITE_URL,
-        name: `${NAME} — ${ROLE}`,
+        name: SITE_TITLE,
+        description: SITE_DESCRIPTION,
+        inLanguage: "en",
         isPartOf: {"@id": SITE_ID},
         about: {"@id": PERSON_ID},
         mainEntity: {"@id": PERSON_ID},
+        primaryImageOfPage: {"@id": PORTRAIT_ID},
         dateModified: new Date().toISOString().slice(0, 10),
     };
 }
@@ -175,14 +217,14 @@ export function worksSchema() {
     };
 }
 
-/** The open-source archive, as SoftwareSourceCode. Only entries with a repo. */
-export function archiveSchema() {
-    const withRepos = ARCHIVE.filter((a) => a.repo);
+/** The earlier projects with public source, as SoftwareSourceCode. */
+export function builtSchema() {
+    const withRepos = BUILT.filter((item) => item.repo);
 
     return {
         "@type": "ItemList",
-        "@id": `${SITE_URL}/#archive`,
-        name: "Open-source archive",
+        "@id": `${SITE_URL}/#built`,
+        name: "Things I've built",
         numberOfItems: withRepos.length,
         itemListElement: withRepos.map((item, i) => ({
             "@type": "ListItem",
@@ -202,7 +244,8 @@ export function archiveSchema() {
 /**
  * A single @graph rather than several loose blocks. One script tag, one
  * parse, and the @id cross-references actually resolve — which is what lets
- * Google connect the person to the work instead of reading five orphans.
+ * Google connect the person to the portrait and the work instead of reading
+ * a pile of orphans.
  */
 export function jsonLdGraph(...nodes: object[]) {
     return {
@@ -213,36 +256,32 @@ export function jsonLdGraph(...nodes: object[]) {
 
 /** Keyword set for <meta name="keywords">, and a useful record of intent. */
 export const KEYWORDS = [
-    // Brand - the queries that should land here first.
+    // Brand — the queries that should land here first.
+    "Salman Khan skdrh",
+    "skdrh",
+    "skdrh_",
     "Salman Khan developer",
     "Salman Khan software architect",
     "Salman Khan dragondevs",
-    "skdrh",
     "dragondevs founder",
+    "Bizstock founder",
     // Role
     "software architect",
-    "product architect",
+    "product builder",
     "end-to-end product builder",
-    "solo product builder",
     "full-stack engineer",
     "Next.js developer",
-    "TypeScript architect",
-    // Specialism - the differentiated, low-competition terms
-    "scalable system design",
-    "offline-first developer",
-    "local-first software engineer",
-    "Tauri developer",
-    "multi-tenant SaaS architecture",
-    "bilingual RTL web developer",
-    "headless commerce developer",
+    "TypeScript developer",
+    // Specialism — the differentiated, low-competition terms
+    "offline-first software",
+    "multi-tenant SaaS",
+    "inventory and POS software",
+    "Next.js VPS deployment",
     // Intent
     "hire software architect",
-    "hire offline-first developer",
-    "hire solo product builder",
+    "hire full-stack developer",
     "remote software architect",
-    "inventory POS software developer",
 ];
 
 /** Earliest year on the timeline — used for the copyright range in the footer. */
 export const FOUNDED = CAREER_START;
-

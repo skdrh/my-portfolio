@@ -1,16 +1,23 @@
-import {ArrowUpRight} from "lucide-react";
+import {ArrowUp} from "lucide-react";
 
-import {COMPANY, CONTACT_EMAIL, HANDLE, NAME, NAV, SOCIALS} from "@/lib/site";
+import {ShareLinks} from "@/components/share-links";
 import {FOUNDED} from "@/lib/seo";
+import {ALIAS, COMPANY, CONTACT_EMAIL, HANDLE, NAME, SITEMAP} from "@/lib/site";
 
+/**
+ * The footer indexes every section under its long name (the header uses the
+ * short ones), carries the share row, and links nothing the hero already
+ * links — the old footer repeated the header nav and every profile, which is
+ * where the duplicate anchor texts and a third of the outbound links came from.
+ */
 export function SiteFooter() {
     const year = new Date().getFullYear();
 
     return (
         <footer className="border-b border-border">
             <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-                    <div className="lg:col-span-2">
+                <div className="grid gap-10 sm:grid-cols-[1fr_auto] sm:gap-16">
+                    <div>
                         <div className="flex items-baseline gap-2.5">
                             <span className="font-display text-[15px] leading-none font-semibold tracking-[-0.03em] text-foreground">
                                 {HANDLE}
@@ -18,8 +25,8 @@ export function SiteFooter() {
                             <span aria-hidden className="h-[3px] w-5 bg-signal" />
                         </div>
                         <p className="mt-4 max-w-sm text-pretty text-[13.5px] leading-7 text-muted-foreground">
-                            Full-stack product engineer. Offline-first systems, multi-tenant
-                            platforms and bilingual commerce — built end to end.
+                            {NAME} ({ALIAS}): software architect, product builder and founder
+                            of {COMPANY.name}. Real problems in, real products out.
                         </p>
                         <a
                             href={`mailto:${CONTACT_EMAIL}`}
@@ -29,10 +36,10 @@ export function SiteFooter() {
                         </a>
                     </div>
 
-                    <nav aria-label="Footer">
-                        <p className="field">Sections</p>
-                        <ul className="mt-4 space-y-2.5">
-                            {NAV.map((item) => (
+                    <nav aria-label="Sections">
+                        <p className="field">On this page</p>
+                        <ul className="mt-4 grid grid-cols-2 gap-x-10 gap-y-2.5">
+                            {SITEMAP.map((item) => (
                                 <li key={item.href}>
                                     <a
                                         href={item.href}
@@ -44,40 +51,23 @@ export function SiteFooter() {
                             ))}
                         </ul>
                     </nav>
-
-                    <div>
-                        <p className="field">Elsewhere</p>
-                        <ul className="mt-4 space-y-2.5">
-                            {[
-                                {label: "X", href: SOCIALS.x},
-                                {label: "LinkedIn", href: SOCIALS.linkedin},
-                                {label: "GitHub", href: SOCIALS.github},
-                                {label: COMPANY.name, href: COMPANY.url},
-                                {label: `${COMPANY.name} on X`, href: COMPANY.x},
-                            ].map((link) => (
-                                <li key={link.label}>
-                                    <a
-                                        href={link.href}
-                                        target="_blank"
-                                        rel="noreferrer noopener"
-                                        className="group inline-flex items-center gap-1.5 font-mono text-[12px] text-muted-foreground transition-colors hover:text-foreground"
-                                    >
-                                        {link.label}
-                                        <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
                 </div>
 
-                <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+                <div className="mt-12 border-t border-border pt-6">
+                    <ShareLinks />
+                </div>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <p className="tabular font-mono text-[11px] text-faint">
-                        © {FOUNDED}—{year} {NAME}
+                        © {FOUNDED}—{year} {NAME} · No trackers · No cookies
                     </p>
-                    <p className="font-mono text-[11px] text-faint">
-                        Built with Next.js · No trackers · No cookies
-                    </p>
+                    <a
+                        href="#top"
+                        className="group inline-flex w-fit items-center gap-1.5 font-mono text-[11px] tracking-[0.06em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+                    >
+                        Back to top
+                        <ArrowUp className="size-3 transition-transform group-hover:-translate-y-px" />
+                    </a>
                 </div>
             </div>
         </footer>

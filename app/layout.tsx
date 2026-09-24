@@ -7,10 +7,11 @@ import {
     jsonLdGraph,
     KEYWORDS,
     personSchema,
+    portraitSchema,
     profilePageSchema,
     websiteSchema,
 } from "@/lib/seo";
-import {NAME, ROLE, SITE_DESCRIPTION, SITE_URL, X_HANDLE} from "@/lib/site";
+import {ALIAS, NAME, SITE_DESCRIPTION, SITE_TITLE, SITE_URL, X_HANDLE} from "@/lib/site";
 
 import "./globals.css";
 
@@ -46,12 +47,12 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
     title: {
-        default: `${NAME} — ${ROLE}`,
-        template: `%s | ${NAME}`,
+        default: SITE_TITLE,
+        template: `%s | ${NAME} (${ALIAS})`,
     },
     description: SITE_DESCRIPTION,
     keywords: KEYWORDS,
-    applicationName: `${NAME} — Portfolio`,
+    applicationName: `${NAME} (${ALIAS})`,
     category: "technology",
     authors: [{name: NAME, url: SITE_URL}],
     creator: NAME,
@@ -80,22 +81,25 @@ export const metadata: Metadata = {
     // the right type and sizes. Declaring them here as well produced two
     // competing <link rel="icon"> tags.
     manifest: "/manifest.webmanifest",
+    // The share image is app/opengraph-image.tsx — the portrait on the
+    // drafting sheet — and Next attaches it to both of these on its own.
     openGraph: {
         type: "profile",
-        siteName: `${NAME} — ${ROLE}`,
-        title: `${NAME} — ${ROLE}`,
+        siteName: `${NAME} (${ALIAS})`,
+        title: SITE_TITLE,
         description: SITE_DESCRIPTION,
         url: "/",
         locale: "en_US",
         firstName: "Salman",
         lastName: "Khan",
-        username: "skdrh",
+        username: ALIAS,
     },
     twitter: {
         card: "summary_large_image",
-        title: `${NAME} — ${ROLE}`,
+        title: SITE_TITLE,
         description:
-            "Offline-first systems, multi-tenant platforms and bilingual commerce, built end to end. Founder of dragondevs.",
+            "I build products end to end: the idea, the architecture, the UI, the API, the database, the AI, even the deploy script. Founder of dragondevs.",
+        site: `@${X_HANDLE}`,
         creator: `@${X_HANDLE}`,
     },
 };
@@ -127,7 +131,12 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
                 <ThemeProvider>{children}</ThemeProvider>
 
                 <JsonLd
-                    data={jsonLdGraph(personSchema(), websiteSchema(), profilePageSchema())}
+                    data={jsonLdGraph(
+                        personSchema(),
+                        portraitSchema(),
+                        websiteSchema(),
+                        profilePageSchema(),
+                    )}
                 />
             </body>
         </html>

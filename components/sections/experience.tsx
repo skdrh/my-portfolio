@@ -3,56 +3,36 @@ import {EXPERIENCE} from "@/data/experience";
 import {CAREER_START} from "@/lib/site";
 
 /**
- * The timeline, newest first, as hairline rows with the years in a mono gutter.
- *
- * No vertical connector line, no dots-on-a-string, no alternating sides. The
- * years are already a sequence; drawing a rail beside them just repeats in
- * pixels what the numbers say in text.
+ * The timeline, newest first, one hairline row per role with the years in a
+ * mono gutter. Roles are not headings: six job titles in the page outline
+ * added nothing a reader or a crawler needed.
  */
 export function Experience() {
     return (
-        <Section
-            id="experience"
-            index={4}
-            label="Experience"
-            title={`Building since ${CAREER_START}.`}
-            intro="Graphic design, then freelance code, then three years of deliberate self-teaching, then products. The early entries are kept because they are where the eye and the habits came from."
-        >
+        <Section id="experience" index={5} label="Experience" title={`Building since ${CAREER_START}.`}>
             <ol className="border-t border-border">
                 {EXPERIENCE.map((role) => (
                     <li
                         key={`${role.from}-${role.company}`}
-                        className="reveal grid gap-3 border-b border-border py-7 sm:grid-cols-[160px_1fr] sm:gap-8"
+                        className="reveal grid gap-2 border-b border-border py-5 sm:grid-cols-[160px_1fr] sm:gap-8"
                     >
-                        <div className="flex items-center gap-2 sm:block">
-                            <time className="tabular block font-mono text-[11px] tracking-[0.06em] text-foreground">
+                        <p className="flex items-center gap-2.5">
+                            <time className="tabular font-mono text-[11px] tracking-[0.06em] text-foreground">
                                 {role.from} — {role.to}
                             </time>
-                            {role.current ? (
-                                <span className="mt-2 hidden items-center gap-2 font-mono text-[10px] tracking-[0.1em] text-muted-foreground uppercase sm:inline-flex">
-                                    <span className="pulse-dot" aria-hidden />
-                                    Current
-                                </span>
-                            ) : null}
-                        </div>
-
+                            {role.current ? <span className="pulse-dot" aria-hidden /> : null}
+                        </p>
                         <div className="min-w-0">
-                            <h3 className="font-display text-[17px] leading-snug font-semibold tracking-[-0.025em] text-foreground">
+                            <p className="font-display text-[16px] leading-snug font-semibold tracking-[-0.02em] text-foreground">
                                 {role.title}
-                            </h3>
-                            <p className="mt-1 font-mono text-[11.5px] text-muted-foreground">
-                                {role.company}
+                                <span className="font-mono text-[12px] font-normal text-muted-foreground">
+                                    {" "}
+                                    · {role.company}
+                                </span>
                             </p>
-                            <p className="mt-3 max-w-2xl text-pretty text-[13.5px] leading-7 text-muted-foreground">
-                                {role.description}
+                            <p className="mt-1 text-pretty text-[14px] leading-6 text-muted-foreground">
+                                {role.note}
                             </p>
-                            <ul className="mt-4 flex flex-wrap gap-1.5">
-                                {role.tags.map((tag) => (
-                                    <li key={tag} className="tag">
-                                        {tag}
-                                    </li>
-                                ))}
-                            </ul>
                         </div>
                     </li>
                 ))}

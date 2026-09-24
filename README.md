@@ -1,9 +1,11 @@
 # salman.dragondevs.co
 
-Personal site for Salman Khan — full-stack product engineer, founder of
-[dragondevs](https://dragondevs.co).
+Personal site for Salman Khan (skdrh) — software architect and product
+builder, founder of [dragondevs](https://dragondevs.co).
 
-One page, no photographs, no trackers. Next.js 16, React 19, Tailwind CSS 4.
+One page, one photograph, no trackers. Next.js 16, React 19, Tailwind CSS 4.
+The copy follows the [GitHub profile README](https://github.com/skdrh/skdrh):
+short, first person, and in the same order.
 
 Laid out like a drafting sheet: a blueprint grid, bracketed callouts and
 registration ticks, on the theory that a page about building systems should
@@ -52,25 +54,44 @@ There is no CMS and no admin. Everything is typed data in two folders:
 
 | File                  | What it holds                                          |
 | --------------------- | ------------------------------------------------------ |
-| `lib/site.ts`         | Name, role, domain, email, socials, the four headline figures, nav |
+| `lib/site.ts`         | Name, handle, title, description, portrait, socials, figures, nav |
+| `data/now.ts`         | Right now — what is on the bench                        |
 | `data/work.ts`        | The four case-studied systems, linked to dragondevs.co  |
-| `data/expertise.ts`   | Capabilities, each naming the work that evidences it    |
-| `data/stack.ts`       | Technologies grouped by job; `core: true` marks defaults |
+| `data/built.ts`       | Things I've built — earlier projects, one line each     |
+| `data/toolbox.ts`     | Technologies grouped by job                             |
 | `data/experience.ts`  | The timeline                                            |
-| `data/archive.ts`     | Earlier open-source work                                |
+| `data/principles.ts`  | How I work — the three rules                            |
 | `data/faq.ts`         | FAQ copy — also emitted as FAQPage structured data       |
 | `lib/seo.ts`          | JSON-LD schemas and the keyword set                     |
+| `public/skdrh.jpg`    | The portrait — hero, share card, Person schema, sitemap |
 
 Changing `SITE_URL` in `lib/site.ts` updates the canonical URL, sitemap,
 robots.txt, Open Graph tags and structured data together.
+
+## SEO budgets
+
+The page was audited with Seobility and these are the limits it checks. Keep
+them when editing:
+
+- **Title** under 580px, **meta description** under 1000px (Arial 20px and
+  14px respectively). The current ones are ~551px and ~945px.
+- **One link per destination, and no anchor text twice.** The header nav and
+  the footer index use different labels on purpose.
+- **Few outbound links.** There are 15: three profiles, dragondevs, Bizstock,
+  dargo-cli, four case studies, WhatsApp and four share links. It was 34.
+- **Headings only for structure** — one H1, a H2 per section, a H3 per case
+  study. Questions, roles and project names are not headings. It was 41.
+- **Name and handle together.** "Salman Khan" alone belongs to a film star;
+  the title, image alt, caption and structured data all pair it with *skdrh*.
 
 ## Design system
 
 `app/globals.css` holds it, and the comment at the top explains the reasoning.
 The organising idea is a **drafting sheet**:
 
-- **No imagery.** The work is systems work; a dashboard screenshot at thumbnail
-  size proves nothing. The page carries itself on structure instead.
+- **One photograph.** The portrait, framed as `FIG. 01` with registration
+  ticks. No screenshots: a dashboard at thumbnail size proves nothing, so the
+  rest of the page carries itself on structure.
 - **A blueprint ground.** Deep navy in dark, cool paper in light, with a
   measured 32px grid under the hero and blue-tinted hairlines everywhere, so
   the whole surface reads as one sheet.
@@ -99,14 +120,15 @@ than picked by eye. The values in `globals.css` carry comments saying so.
 app/
   layout.tsx              fonts, metadata, JSON-LD, theme provider
   page.tsx                section composition
-  opengraph-image.tsx     share card, generated from type
+  opengraph-image.tsx     share card: the sheet plus the portrait
   robots.ts  sitemap.ts
   api/contact/route.ts    SMTP delivery
   manifest.ts             web app manifest
 components/
   section.tsx             the title-block shell every section opens with
-  sections/               hero, work, expertise, stack, experience,
-                          archive, faq, contact
+  sections/               hero, now, work, built, toolbox, experience,
+                          how-i-work, faq, contact
+  share-links.tsx         share this page (X, LinkedIn, Facebook, WhatsApp, copy)
 data/                     all page content
 lib/                      site.ts (identity), seo.ts (schemas), utils.ts
 ```

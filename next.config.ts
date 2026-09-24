@@ -1,8 +1,9 @@
 import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
-    // This site ships no raster imagery on purpose, so there is nothing here
-    // for the image optimiser to do. Everything visual is type, rule and mark.
+    // One raster image on the whole site — the portrait in the hero, served
+    // through next/image at the default quality. Everything else visual is
+    // type, rule and mark.
     reactStrictMode: true,
 };
 

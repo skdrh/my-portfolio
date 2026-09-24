@@ -1,11 +1,11 @@
 import type {MetadataRoute} from "next";
 
-import {NAME, ROLE, SITE_DESCRIPTION} from "@/lib/site";
+import {ALIAS, NAME, SITE_DESCRIPTION, SITE_TITLE} from "@/lib/site";
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: `${NAME} — ${ROLE}`,
-        short_name: NAME,
+        name: SITE_TITLE,
+        short_name: `${NAME} (${ALIAS})`,
         description: SITE_DESCRIPTION,
         start_url: "/",
         display: "standalone",

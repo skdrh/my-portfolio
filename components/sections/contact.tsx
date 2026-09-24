@@ -1,17 +1,15 @@
 import {ArrowUpRight, Mail} from "lucide-react";
 
-import {GitHubIcon, LinkedInIcon, WhatsAppIcon, XIcon} from "@/components/brand-icons";
+import {WhatsAppIcon} from "@/components/brand-icons";
 import {ContactForm} from "@/components/contact-form";
 import {Section} from "@/components/section";
-import {
-    CONTACT_EMAIL,
-    LINKEDIN_HANDLE,
-    SOCIALS,
-    TIMEZONE,
-    WHATSAPP_E164,
-    X_HANDLE,
-} from "@/lib/site";
+import {CONTACT_EMAIL, SOCIALS, TIMEZONE, WHATSAPP_E164} from "@/lib/site";
 
+/**
+ * The two direct lines. The profiles are linked once, at the top of the
+ * page — repeating them here is how the old page ended up with every profile
+ * linked three times.
+ */
 const CHANNELS = [
     {
         label: "Email",
@@ -20,31 +18,10 @@ const CHANNELS = [
         icon: Mail,
     },
     {
-        label: "X",
-        value: `@${X_HANDLE}`,
-        href: SOCIALS.x,
-        icon: XIcon,
-        external: true,
-    },
-    {
-        label: "LinkedIn",
-        value: `in/${LINKEDIN_HANDLE}`,
-        href: SOCIALS.linkedin,
-        icon: LinkedInIcon,
-        external: true,
-    },
-    {
         label: "WhatsApp",
         value: WHATSAPP_E164,
-        href: `https://wa.me/${WHATSAPP_E164.replace(/[^\d]/g, "")}`,
+        href: SOCIALS.whatsapp,
         icon: WhatsAppIcon,
-        external: true,
-    },
-    {
-        label: "GitHub",
-        value: "github.com/skdrh",
-        href: SOCIALS.github,
-        icon: GitHubIcon,
         external: true,
     },
 ];
@@ -53,18 +30,18 @@ const CHANNELS = [
  * Direct channels first, form second.
  *
  * A form is a promise that something on the far end is working. Listing the
- * real address, profile and number above it means the page still does its job
- * on the day the promise is broken — which, on the previous site, was every
- * day for a year.
+ * real address and number beside it means the page still does its job on the
+ * day the promise is broken — which, on the previous site, was every day for
+ * a year.
  */
 export function Contact() {
     return (
         <Section
             id="contact"
-            index={7}
+            index={8}
             label="Contact"
-            title="Tell me what you are building."
-            intro="Serious enquiries only get serious answers, and I read every message myself. Whether it is a product to build, a system to rescue, or a role worth talking about — the fastest route is the one that suits you."
+            title="Got an idea? Let's build it."
+            intro="Tell me what you are building and what is in the way. I read every message myself and usually reply within a day."
         >
             <div className="grid gap-10 lg:grid-cols-[300px_1fr] lg:gap-12">
                 <div>
@@ -99,7 +76,6 @@ export function Contact() {
                         <p className="text-[13px] leading-6 text-muted-foreground">
                             Working {TIMEZONE}, which overlaps a normal day across the Gulf,
                             Europe and most of Asia. Every engagement so far has been remote.
-                            I read every message myself.
                         </p>
                     </div>
                 </div>

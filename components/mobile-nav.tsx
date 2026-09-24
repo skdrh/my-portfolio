@@ -3,12 +3,16 @@
 import {Menu, X} from "lucide-react";
 import {useEffect, useState} from "react";
 
-import {CONTACT_EMAIL, NAV} from "@/lib/site";
+import {CONTACT_EMAIL, SITEMAP} from "@/lib/site";
 
 /**
  * A full-height sheet rather than a dropdown — there is no dialog library on
- * this site and none is needed for five links. Escape closes it, the body
+ * this site and none is needed for eight links. Escape closes it, the body
  * scroll locks while it is open, and every link closes it on the way out.
+ *
+ * It lists every section, not just the header's five: there is room here,
+ * and on a phone this is the only index there is. It renders nothing until
+ * opened, so none of it duplicates the footer in the server HTML.
  */
 export function MobileNav() {
     const [open, setOpen] = useState(false);
@@ -43,7 +47,7 @@ export function MobileNav() {
             </button>
 
             {open ? (
-                <div className="fixed inset-0 z-50 bg-background lg:hidden">
+                <div className="fixed inset-0 z-50 overflow-y-auto bg-background lg:hidden">
                     <div className="flex h-16 items-center justify-between border-b border-border px-4 sm:px-6">
                         <span className="callout">Menu</span>
                         <button
@@ -57,15 +61,15 @@ export function MobileNav() {
                     </div>
 
                     <nav aria-label="Mobile" className="flex flex-col">
-                        {NAV.map((item, i) => (
+                        {SITEMAP.map((item, i) => (
                             <a
                                 key={item.href}
                                 href={item.href}
                                 onClick={() => setOpen(false)}
-                                className="flex items-baseline gap-4 border-b border-border px-4 py-5 transition-colors hover:bg-muted sm:px-6"
+                                className="flex items-baseline gap-4 border-b border-border px-4 py-4 transition-colors hover:bg-muted sm:px-6"
                             >
                                 <span className="ref">{String(i + 1).padStart(2, "0")}</span>
-                                <span className="font-display text-[22px] font-semibold tracking-[-0.03em] text-foreground">
+                                <span className="font-display text-[20px] font-semibold tracking-[-0.03em] text-foreground">
                                     {item.label}
                                 </span>
                             </a>

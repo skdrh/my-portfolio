@@ -5,14 +5,22 @@
  * reads from here. Change a value once and the whole site follows.
  *
  * Nothing in this file is invented. Every link and figure is carried over from
- * the previous portfolio's own data or from the case studies published on
- * dragondevs.co. If a fact could not be sourced it is not here, because wrong
- * structured data is worse for SEO than absent structured data.
+ * the previous portfolio's own data, the GitHub profile README, or the case
+ * studies published on dragondevs.co. If a fact could not be sourced it is not
+ * here, because wrong structured data is worse for SEO than absent structured
+ * data.
  */
 
 export const SITE_URL = "https://salman.dragondevs.co";
 
 export const NAME = "Salman Khan";
+
+/**
+ * The name people can actually search for. "Salman Khan" on its own belongs to
+ * a very famous actor, so everywhere the page names its subject — title, H1
+ * area, image alt, structured data — the two travel together.
+ */
+export const ALIAS = "skdrh";
 
 /** The wordmark at the top of every page, repeated in the footer. */
 export const HANDLE = "skdrh_";
@@ -20,34 +28,47 @@ export const HANDLE = "skdrh_";
 /** Personal X account — linked on the page and credited on the share card. */
 export const X_HANDLE = "skdrh_";
 
-/** LinkedIn username — the hero and the contact list show it, the URL is built from it. */
+/** LinkedIn username — the hero shows it, the URL is built from it. */
 export const LINKEDIN_HANDLE = "skdrh";
 
+export const GITHUB_HANDLE = "skdrh";
+
 /**
- * "Software architect" is the searched term and the one the work leans on;
- * "product builder" is the part most engineers cannot claim — architecture
- * through engineering through business and go-to-market, done by one person.
+ * "Software architect" is the searched term; "product builder" is the part
+ * most engineers cannot claim — the idea through the architecture through the
+ * deploy, done by one person.
  */
 export const ROLE = "Software Architect & Product Builder";
 
-/**
- * The one-sentence version, used for meta description, OG and JSON-LD.
- * Written to read as a sentence, not a keyword list — search engines have
- * penalised the latter for years and humans never liked it.
- */
-export const SITE_DESCRIPTION =
-    "Salman Khan designs and builds entire products alone — scalable architecture, " +
-    "full-stack engineering, then the business and the go-to-market around it. " +
-    "Offline-first software, multi-tenant SaaS and bilingual commerce. " +
-    "Founder of dragondevs and the sole builder of Bizstock.";
+/** 551px at Arial 20px, inside the 580px a results page shows. */
+export const SITE_TITLE = `${NAME} (${ALIAS}) — ${ROLE}`;
 
 /**
- * Working hours, not an address.
- *
- * The city was removed from the page deliberately, so it is gone from the
- * structured data too — a Person.address claiming a locality the page never
- * states is exactly the kind of inconsistency that devalues a schema block.
- * The offset stays because a client scheduling a call genuinely needs it.
+ * The meta description. Measured rather than guessed: SEO auditors render it
+ * in Arial 14px against a 1000px budget, and this is ~945px. The previous
+ * copy measured 1684px and was cut off mid-sentence in results.
+ */
+export const SITE_DESCRIPTION =
+    "Salman Khan (skdrh) is a software architect and product builder. " +
+    "Founder of dragondevs and maker of Bizstock. Bring a real problem, get a real product.";
+
+/**
+ * The one photograph on the site. Named after the handle, described with the
+ * full name, and declared as the Person's image in the structured data, so a
+ * search for "Salman Khan skdrh" has a face to show.
+ */
+export const PORTRAIT = {
+    src: "/skdrh.jpg",
+    width: 1189,
+    height: 1280,
+    alt: `${NAME} (${ALIAS}), founder of dragondevs, seated in front of the dragondevs logo`,
+    caption: `${NAME} (${ALIAS}), founder of dragondevs`,
+} as const;
+
+/**
+ * Working hours, not an address. The city was removed from the page
+ * deliberately; the offset stays because a client scheduling a call genuinely
+ * needs it.
  */
 export const TIMEZONE = "UTC+5";
 
@@ -64,17 +85,27 @@ export const CONTACT_EMAIL = "starsalman01@gmail.com";
 export const WHATSAPP_E164 = "+923466955928";
 
 export const SOCIALS = {
-    github: "https://github.com/skdrh",
-    githubOrg: "https://github.com/dragon-devs",
-    linkedin: `https://www.linkedin.com/in/${LINKEDIN_HANDLE}/`,
     x: `https://x.com/${X_HANDLE}`,
+    linkedin: `https://www.linkedin.com/in/${LINKEDIN_HANDLE}/`,
+    github: `https://github.com/${GITHUB_HANDLE}`,
+    whatsapp: `https://wa.me/${WHATSAPP_E164.replace(/[^\d]/g, "")}`,
 } as const;
 
 export const COMPANY = {
     name: "dragondevs",
     url: "https://dragondevs.co",
     caseStudies: "https://dragondevs.co/case-studies",
-    x: "https://x.com/dragondevs_",
+    /** The studio's own profiles — structured data only, not linked here. */
+    sameAs: [
+        "https://x.com/dragondevs_",
+        "https://www.linkedin.com/company/dragondevs/",
+        "https://github.com/dragon-devs",
+    ],
+} as const;
+
+export const PRODUCT = {
+    name: "Bizstock",
+    url: "https://bizstock.net",
 } as const;
 
 /** Year the timeline starts — the single place the "since" figures derive from. */
@@ -89,17 +120,34 @@ export const CAREER_START = 2017;
  */
 export const FACTS: {figure: string; label: string}[] = [
     {figure: "8+ yrs", label: `building software, since ${CAREER_START}`},
-    {figure: "4", label: "production systems, written up as case studies"},
-    {figure: "30+", label: "projects delivered end to end"},
-    {figure: "1", label: "person behind Bizstock — design, code and go-to-market"},
+    {figure: "30+", label: "projects shipped end to end"},
+    {figure: "4", label: "case studies, written up in full"},
+    {figure: "1", label: "person behind Bizstock, start to finish"},
 ];
 
-/** Primary nav — also drives the scroll-spy and the mobile sheet. */
+/**
+ * Header navigation — short labels, because the header is narrow.
+ *
+ * The footer indexes the same sections under longer names (SITEMAP below).
+ * They differ on purpose: the same anchor text on two links is exactly what
+ * SEO auditors flag, and the old footer repeated this list word for word.
+ */
 export const NAV = [
+    {href: "#now", label: "Now"},
     {href: "#work", label: "Work"},
-    {href: "#expertise", label: "Expertise"},
-    {href: "#stack", label: "Stack"},
-    {href: "#experience", label: "Experience"},
+    {href: "#built", label: "Built"},
+    {href: "#toolbox", label: "Toolbox"},
     {href: "#faq", label: "FAQ"},
+] as const;
+
+/** Every section, in page order. Drives the footer index and the mobile menu. */
+export const SITEMAP = [
+    {href: "#now", label: "Right now"},
+    {href: "#work", label: "Case studies"},
+    {href: "#built", label: "Things I've built"},
+    {href: "#toolbox", label: "Tech stack"},
+    {href: "#experience", label: "Experience"},
+    {href: "#how-i-work", label: "How I work"},
+    {href: "#faq", label: "Questions"},
     {href: "#contact", label: "Contact"},
 ] as const;
