@@ -1,7 +1,16 @@
 import {ArrowUpRight, Mail} from "lucide-react";
 
 import {GitHubIcon, LinkedInIcon, XIcon} from "@/components/brand-icons";
-import {COMPANY, CONTACT_EMAIL, FACTS, NAME, SOCIALS, TIMEZONE} from "@/lib/site";
+import {
+    COMPANY,
+    CONTACT_EMAIL,
+    FACTS,
+    LINKEDIN_HANDLE,
+    NAME,
+    SOCIALS,
+    TIMEZONE,
+    X_HANDLE,
+} from "@/lib/site";
 
 /**
  * Where the old portfolio put a cut-out photograph, this puts the drawing's
@@ -84,24 +93,28 @@ export function Hero() {
                             </div>
 
                             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+                                {/* Usernames rather than platform names — the logo already
+                                    says which platform; the label says who to look for. */}
                                 <a
                                     href={SOCIALS.x}
                                     target="_blank"
                                     rel="noreferrer noopener"
+                                    aria-label={`${X_HANDLE} on X`}
                                     className="group inline-flex items-center gap-2 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground"
                                 >
                                     <XIcon className="size-3.5" />
-                                    X
+                                    {X_HANDLE}
                                     <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
                                 </a>
                                 <a
                                     href={SOCIALS.linkedin}
                                     target="_blank"
                                     rel="noreferrer noopener"
+                                    aria-label={`${LINKEDIN_HANDLE} on LinkedIn`}
                                     className="group inline-flex items-center gap-2 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground"
                                 >
                                     <LinkedInIcon className="size-3.5" />
-                                    LinkedIn
+                                    {LINKEDIN_HANDLE}
                                     <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
                                 </a>
                                 <a

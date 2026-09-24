@@ -20,6 +20,9 @@ export const HANDLE = "skdrh_";
 /** Personal X account — linked on the page and credited on the share card. */
 export const X_HANDLE = "skdrh_";
 
+/** LinkedIn username — the hero and the contact list show it, the URL is built from it. */
+export const LINKEDIN_HANDLE = "skdrh";
+
 /**
  * "Software architect" is the searched term and the one the work leans on;
  * "product builder" is the part most engineers cannot claim — architecture
@@ -63,7 +66,7 @@ export const WHATSAPP_E164 = "+923466955928";
 export const SOCIALS = {
     github: "https://github.com/skdrh",
     githubOrg: "https://github.com/dragon-devs",
-    linkedin: "https://www.linkedin.com/in/skdrh/",
+    linkedin: `https://www.linkedin.com/in/${LINKEDIN_HANDLE}/`,
     x: `https://x.com/${X_HANDLE}`,
 } as const;
 

@@ -3,7 +3,14 @@ import {ArrowUpRight, Mail} from "lucide-react";
 import {GitHubIcon, LinkedInIcon, WhatsAppIcon, XIcon} from "@/components/brand-icons";
 import {ContactForm} from "@/components/contact-form";
 import {Section} from "@/components/section";
-import {CONTACT_EMAIL, SOCIALS, TIMEZONE, WHATSAPP_E164, X_HANDLE} from "@/lib/site";
+import {
+    CONTACT_EMAIL,
+    LINKEDIN_HANDLE,
+    SOCIALS,
+    TIMEZONE,
+    WHATSAPP_E164,
+    X_HANDLE,
+} from "@/lib/site";
 
 const CHANNELS = [
     {
@@ -21,7 +28,7 @@ const CHANNELS = [
     },
     {
         label: "LinkedIn",
-        value: "in/skdrh",
+        value: `in/${LINKEDIN_HANDLE}`,
         href: SOCIALS.linkedin,
         icon: LinkedInIcon,
         external: true,
