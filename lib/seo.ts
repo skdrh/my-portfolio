@@ -276,7 +276,7 @@ export const KEYWORDS = [
     "offline-first software",
     "multi-tenant SaaS",
     "inventory and POS software",
-    "Next.js VPS deployment",
+    "offline file transfer app",
     // Intent
     "hire software architect",
     "hire full-stack developer",

@@ -2,6 +2,7 @@ import {ArrowUpRight, Mail} from "lucide-react";
 import Image from "next/image";
 
 import {GitHubIcon, LinkedInIcon, XIcon} from "@/components/brand-icons";
+import {HeroSheet, PortraitDial} from "@/components/hero-backdrop";
 import {
     ALIAS,
     COMPANY,
@@ -34,15 +35,17 @@ const PROFILES = [
 export function Hero() {
     return (
         <>
-            <section id="top" className="relative overflow-hidden border-b border-border">
-                {/* The sheet the page is drawn on. Masked so it dissolves before
-                    it reaches the edges rather than stopping at a hard line. */}
-                <div
-                    aria-hidden
-                    className="sheet-grid sheet-grid-fade pointer-events-none absolute inset-0"
-                />
+            {/* tabIndex -1 so the wordmark's #top link moves focus here as well
+                as scrolling, and keyboard users continue from the hero. The top
+                padding clears the floating header (68px) plus the gap under it. */}
+            <section
+                id="top"
+                tabIndex={-1}
+                className="relative overflow-hidden border-b border-border outline-none"
+            >
+                <HeroSheet />
 
-                <div className="relative mx-auto w-full max-w-6xl px-4 pt-14 pb-16 sm:px-6 sm:pt-20 sm:pb-24">
+                <div className="relative mx-auto w-full max-w-6xl px-4 pt-24 pb-16 sm:px-6 sm:pt-[108px] sm:pb-24">
                     <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
                         <div className="min-w-0 animate-rise">
                             <p className="callout">{ROLE}</p>
@@ -127,12 +130,14 @@ export function Hero() {
                         </div>
 
                         {/* The portrait, set as a figure on the sheet: registration
-                            ticks on the frame and a title strip underneath, the way a
-                            plate is captioned on a drawing. */}
+                            ticks on the frame, a title strip underneath, and the
+                            construction drawing behind it. Cropped square from the
+                            top, so the face leads and the bottom of the chair goes. */}
                         <figure
-                            className="mx-auto w-full max-w-[440px] min-w-0 animate-rise lg:max-w-none"
+                            className="relative isolate mx-auto w-full max-w-[440px] min-w-0 animate-rise lg:max-w-none"
                             style={{animationDelay: "120ms"}}
                         >
+                            <PortraitDial />
                             <div className="ticked border border-border-strong bg-surface p-1.5">
                                 <Image
                                     src={PORTRAIT.src}
@@ -142,7 +147,7 @@ export function Hero() {
                                     sizes="(min-width: 1152px) 440px, (min-width: 1024px) 38vw, (min-width: 480px) 440px, 100vw"
                                     loading="eager"
                                     fetchPriority="high"
-                                    className="block h-auto w-full bg-muted"
+                                    className="block aspect-square h-auto w-full bg-muted object-cover object-top"
                                 />
                             </div>
                             <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border border-t-0 border-border-strong bg-surface px-4 py-3">
@@ -167,7 +172,7 @@ export function Hero() {
             </section>
 
             {/* The four figures the rest of the page keeps coming back to,
-                each under the same plain dash the wordmark carries. */}
+                each under a signal dash, the same blue as the wordmark's underscore. */}
             <section aria-label="At a glance" className="border-b border-border bg-muted/40">
                 <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
                     <div className="grid grid-cols-2 gap-x-8 gap-y-7 py-9 sm:gap-x-12 lg:grid-cols-4">

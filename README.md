@@ -77,8 +77,10 @@ them when editing:
   14px respectively). The current ones are ~551px and ~945px.
 - **One link per destination, and no anchor text twice.** The header nav and
   the footer index use different labels on purpose.
-- **Few outbound links.** There are 15: three profiles, dragondevs, Bizstock,
-  dargo-cli, four case studies, WhatsApp and four share links. It was 34.
+- **Few outbound links.** There are 14: three profiles, dragondevs, Bizstock,
+  four case studies, WhatsApp and four share links. It was 34.
+- **Floating header.** The frost is a layer behind the bar, not on it —
+  `backdrop-filter` would trap the fixed-position mobile menu inside the bar.
 - **Headings only for structure** — one H1, a H2 per section, a H3 per case
   study. Questions, roles and project names are not headings. It was 41.
 - **Name and handle together.** "Salman Khan" alone belongs to a film star;
@@ -126,6 +128,8 @@ app/
   manifest.ts             web app manifest
 components/
   section.tsx             the title-block shell every section opens with
+  hero-backdrop.tsx       the hero's paper grid and construction drawing
+  wordmark.tsx            skdrh_ with the blue, blinking underscore
   sections/               hero, now, work, built, toolbox, experience,
                           how-i-work, faq, contact
   share-links.tsx         share this page (X, LinkedIn, Facebook, WhatsApp, copy)

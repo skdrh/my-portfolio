@@ -1,4 +1,4 @@
-import {ArrowUpRight} from "lucide-react";
+import {ArrowDown, ArrowUpRight} from "lucide-react";
 
 import {Section} from "@/components/section";
 import {NOW} from "@/data/now";
@@ -25,12 +25,17 @@ export function Now() {
                         {item.href ? (
                             <a
                                 href={item.href}
-                                target="_blank"
-                                rel="noreferrer noopener"
+                                {...(item.href.startsWith("#")
+                                    ? {}
+                                    : {target: "_blank", rel: "noreferrer noopener"})}
                                 className="group mt-5 inline-flex w-fit items-center gap-1.5 font-mono text-[11.5px] text-foreground underline decoration-signal decoration-2 underline-offset-4"
                             >
                                 {item.linkLabel}
-                                <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
+                                {item.href.startsWith("#") ? (
+                                    <ArrowDown className="size-3 transition-transform group-hover:translate-y-px" />
+                                ) : (
+                                    <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
+                                )}
                             </a>
                         ) : (
                             <p className="mt-5 flex items-center gap-2 font-mono text-[10.5px] tracking-[0.08em] text-faint uppercase">

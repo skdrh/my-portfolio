@@ -1,3 +1,4 @@
+import {BackToTop} from "@/components/back-to-top";
 import {JsonLd} from "@/components/json-ld";
 import {Built} from "@/components/sections/built";
 import {Contact} from "@/components/sections/contact";
@@ -41,6 +42,7 @@ export default function Home() {
             </main>
 
             <SiteFooter />
+            <BackToTop />
 
             <JsonLd
                 data={jsonLdGraph(organizationSchema(), worksSchema(), builtSchema(), faqSchema())}

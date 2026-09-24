@@ -22,7 +22,11 @@ export function Work() {
         >
             <ol className="border-t border-border">
                 {WORK.map((item, i) => (
-                    <li key={item.slug} className="reveal border-b border-border py-8">
+                    <li
+                        key={item.slug}
+                        id={item.slug}
+                        className="reveal scroll-mt-24 border-b border-border py-8"
+                    >
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                             <span className="ref">{String(i + 1).padStart(2, "0")}</span>
                             <span aria-hidden className="h-3 w-px bg-border" />
@@ -70,10 +74,14 @@ export function Work() {
                                 rel="noreferrer noopener"
                                 className="group/link inline-flex w-fit items-center justify-between gap-3 border border-border px-3.5 py-2.5 font-mono text-[11px] tracking-[0.06em] text-foreground uppercase transition-colors hover:border-border-strong hover:bg-muted"
                             >
-                                {/* The project name is part of the link text, so four
-                                    links never share one label and each still says
-                                    where it goes when read out of context. */}
-                                Read the {item.title} case study
+                                {/* The label reads the same on all four; the project
+                                    name rides along as screen-reader text, so each
+                                    link still says where it goes when read out of
+                                    context and no two share an anchor text. */}
+                                <span>
+                                    Read the case study
+                                    <span className="sr-only"> — {item.title}</span>
+                                </span>
                                 <ArrowUpRight className="size-3.5 shrink-0 text-faint transition-transform group-hover/link:-translate-y-px group-hover/link:translate-x-px group-hover/link:text-foreground" />
                             </a>
                         </div>

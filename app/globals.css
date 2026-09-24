@@ -48,6 +48,7 @@
   --border: #dde3ee;
   --border-strong: #c3ccdd;
   --grid-line: #e4e9f3;
+  --grid-major: #d5deee;
   --input: #ccd4e2;
   --ring: #2772cc;
 
@@ -80,6 +81,7 @@
   --border: rgb(120 165 255 / 14%);
   --border-strong: rgb(120 165 255 / 26%);
   --grid-line: rgb(120 165 255 / 7%);
+  --grid-major: rgb(120 165 255 / 13%);
   --input: rgb(120 165 255 / 22%);
   --ring: #4d9bff;
 
@@ -204,6 +206,26 @@
     color: var(--signal);
   }
 
+  /* ── Wordmark underscore ──────────────────────────────────────────────────
+     The handle's own "_" stays in the text — it is what gets read out and
+     copied — but is painted as a signal-blue underline instead of the
+     typeface's hairline glyph: heavier, and sat exactly on the font's
+     underline position rather than eyeballed with a positioned bar. On hover
+     or keyboard focus it blinks like a terminal caret. */
+  .wordmark-caret {
+    color: transparent;
+    text-decoration-line: underline;
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 0.17em;
+    text-underline-offset: 0.12em;
+    text-decoration-skip-ink: none;
+  }
+
+  .group:hover .wordmark-caret,
+  .group:focus-visible .wordmark-caret {
+    animation: sk-caret 1.05s steps(1) infinite;
+  }
+
   /* A drawing reference — 01, 02. */
   .ref {
     font-family: var(--font-mono), ui-monospace, monospace;
@@ -273,23 +295,52 @@
     border-bottom: 2px solid var(--signal);
   }
 
-  /* ── The sheet grid ───────────────────────────────────────────────────────
-     A measured 32px grid, faint enough to sit under text. Used on the hero
-     and nowhere else, so it reads as the ground the page is drawn on rather
-     than as a texture applied everywhere. */
-  .sheet-grid {
+  /* ── The hero sheet ───────────────────────────────────────────────────────
+     A measured drawing ground: a fine 32px grid with a heavier line every
+     fifth square, the way engineering paper is printed. Faded out before it
+     reaches the section edges so there is no hard line where it stops. Used
+     on the hero and nowhere else — it is the ground the page is drawn on, not
+     a texture applied everywhere. */
+  .hero-sheet {
     background-image:
+      linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
       linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
       linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    background-size: 32px 32px;
+    background-size: 160px 160px, 160px 160px, 32px 32px, 32px 32px;
+    mask-image: radial-gradient(120% 90% at 30% 25%, #000 35%, transparent 80%);
   }
 
-  /* Fades the grid out before it reaches the section edges, so there is no
-     hard line where the pattern stops. */
-  .sheet-grid-fade {
-    mask-image: radial-gradient(115% 85% at 22% 20%, #000 30%, transparent 78%);
+  /* The hero's moving parts. Everything here animates `transform` and
+     nothing else, on its own compositor layer, so the motion costs no layout
+     and no repaint — the GPU turns a finished bitmap. No JavaScript, no
+     canvas, no image requests, and the reduced-motion rule at the bottom of
+     this file stops all of it. */
+  .hero-glow {
+    background: radial-gradient(closest-side, color-mix(in oklab, var(--signal) 20%, transparent), transparent);
+    will-change: transform;
+    animation: sk-drift 20s ease-in-out infinite alternate;
   }
 
+  .dark .hero-glow {
+    background: radial-gradient(closest-side, color-mix(in oklab, var(--signal) 26%, transparent), transparent);
+  }
+
+  /* A slow sweep of light across the drawing, like a scanner head. The
+     conic wedge fades in over 70° and is masked to a disc, so it has no
+     edges of its own. */
+  .hero-sweep {
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg 290deg, color-mix(in oklab, var(--signal) 16%, transparent) 360deg);
+    mask-image: radial-gradient(closest-side, #000 60%, transparent 100%);
+    will-change: transform;
+    animation: sk-spin 18s linear infinite;
+  }
+
+  .hero-dial {
+    will-change: transform;
+    animation: sk-spin 160s linear infinite;
+  }
 
   /* A live pulse for active / available states. */
   .pulse-dot {
@@ -314,6 +365,21 @@
   .text-pretty {
     text-wrap: pretty;
   }
+}
+
+@keyframes sk-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sk-drift {
+  from { transform: translate3d(-4%, -3%, 0) scale(1); }
+  to { transform: translate3d(5%, 4%, 0) scale(1.12); }
+}
+
+/* The wordmark's underscore, blinking like a terminal caret. */
+@keyframes sk-caret {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 @keyframes sk-pulse {
@@ -350,7 +416,8 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
-  .animate-rise, .reveal, .pulse-dot::after { animation: none; }
+  .animate-rise, .reveal, .pulse-dot::after,
+  .hero-glow, .hero-sweep, .hero-dial, .wordmark-caret { animation: none !important; }
 
   *, *::before, *::after {
     animation-duration: 0.001ms !important;

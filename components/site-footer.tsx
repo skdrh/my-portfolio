@@ -1,8 +1,9 @@
 import {ArrowUp} from "lucide-react";
 
 import {ShareLinks} from "@/components/share-links";
+import {Wordmark} from "@/components/wordmark";
 import {FOUNDED} from "@/lib/seo";
-import {ALIAS, COMPANY, CONTACT_EMAIL, HANDLE, NAME, SITEMAP} from "@/lib/site";
+import {ALIAS, COMPANY, CONTACT_EMAIL, NAME, SITEMAP} from "@/lib/site";
 
 /**
  * The footer indexes every section under its long name (the header uses the
@@ -18,12 +19,7 @@ export function SiteFooter() {
             <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
                 <div className="grid gap-10 sm:grid-cols-[1fr_auto] sm:gap-16">
                     <div>
-                        <div className="flex items-baseline gap-2.5">
-                            <span className="font-display text-[15px] leading-none font-semibold tracking-[-0.03em] text-foreground">
-                                {HANDLE}
-                            </span>
-                            <span aria-hidden className="h-[3px] w-5 bg-signal" />
-                        </div>
+                        <Wordmark />
                         <p className="mt-4 max-w-sm text-pretty text-[13.5px] leading-7 text-muted-foreground">
                             {NAME} ({ALIAS}): software architect, product builder and founder
                             of {COMPANY.name}. Real problems in, real products out.

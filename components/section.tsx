@@ -30,7 +30,7 @@ export function Section({
     className?: string;
 }) {
     return (
-        <section id={id} className={cn("scroll-mt-16 border-b border-border", className)}>
+        <section id={id} className={cn("scroll-mt-20 border-b border-border", className)}>
             <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
                 {/* Title block: reference on the rule, heading beneath it. */}
                 <header className="reveal">

@@ -11,7 +11,7 @@ export interface NowItem {
     kind: string;
     blurb: string;
     href?: string;
-    /** Visible link text — the destination, so no two links share a label. */
+    /** Visible link text — unique on the page, so no two links share a label. */
     linkLabel?: string;
 }
 
@@ -24,11 +24,13 @@ export const NOW: NowItem[] = [
         linkLabel: "bizstock.net",
     },
     {
-        title: "dargo-cli",
-        kind: "Open source",
-        blurb: "Deploys Next.js to your own Debian VPS with auto SSL, env management and zero-downtime releases. DevOps, minus the tears.",
-        href: "https://github.com/dragon-devs/dargo-cli",
-        linkLabel: "dragon-devs/dargo-cli",
+        title: "Quickbeam",
+        kind: "In development",
+        blurb: "File transfer that never gives up: shared Wi-Fi, its own hotspot, or animated QR codes the other camera reads. Over Wi-Fi, the other side only needs a browser.",
+        // Down the page to its case-study row rather than off-site: the
+        // write-up link lives there, and one link per destination is the rule.
+        href: "#quickbeam-offline-file-transfer",
+        linkLabel: "How it works",
     },
     {
         title: "Multi-tenant SaaS",

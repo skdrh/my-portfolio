@@ -1,31 +1,35 @@
-import Link from "next/link";
-
 import {MobileNav} from "@/components/mobile-nav";
 import {ThemeToggle} from "@/components/theme-toggle";
+import {Wordmark} from "@/components/wordmark";
 import {HANDLE, NAV} from "@/lib/site";
 
 /**
- * Opaque, not glass. At any transparency the hairline rules between sections
- * ghost through as they slide underneath, which reads as a second, crooked
- * border chasing the header down the page.
+ * A floating bar: inset from the viewport edges, frosted rather than opaque,
+ * so the hero's drawing ground runs underneath it and the page reads as one
+ * sheet instead of a sheet with a lid on it.
+ *
+ * The frost is its own layer behind the bar's contents, not a class on the
+ * bar. `backdrop-filter` makes an element the containing block for every
+ * `position: fixed` descendant, and the mobile menu is one — on the bar
+ * itself it would open as a 56px strip instead of a full-screen sheet.
  */
 export function SiteHeader() {
     return (
-        <header className="sticky top-0 z-40 border-b border-border bg-background">
-            <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-                <Link
-                    href="/"
-                    className="group flex items-baseline gap-2.5"
-                    aria-label={`${HANDLE} — home`}
+        <header className="pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-4">
+            <div className="pointer-events-auto relative isolate mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 border border-border pr-2.5 pl-4 shadow-[0_12px_32px_-20px_rgb(4_10_24/0.55)] sm:pl-6">
+                <div
+                    aria-hidden
+                    className="absolute inset-0 -z-10 bg-background/70 backdrop-blur-xl backdrop-saturate-150"
+                />
+
+                {/* Back to the hero rather than a reload of the same page. */}
+                <a
+                    href="#top"
+                    className="group -m-2 flex items-baseline p-2"
+                    aria-label={`${HANDLE} — back to the top`}
                 >
-                    <span className="font-display text-[15px] leading-none font-semibold tracking-[-0.03em] text-foreground">
-                        {HANDLE}
-                    </span>
-                    <span
-                        aria-hidden
-                        className="hidden h-[3px] w-4 bg-signal transition-all duration-300 group-hover:w-7 sm:block"
-                    />
-                </Link>
+                    <Wordmark />
+                </a>
 
                 <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
                     {NAV.map((item) => (
