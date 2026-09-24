@@ -10,7 +10,7 @@ import {
     profilePageSchema,
     websiteSchema,
 } from "@/lib/seo";
-import {NAME, ROLE, SITE_DESCRIPTION, SITE_URL} from "@/lib/site";
+import {NAME, ROLE, SITE_DESCRIPTION, SITE_URL, X_HANDLE} from "@/lib/site";
 
 import "./globals.css";
 
@@ -96,7 +96,7 @@ export const metadata: Metadata = {
         title: `${NAME} — ${ROLE}`,
         description:
             "Offline-first systems, multi-tenant platforms and bilingual commerce, built end to end. Founder of dragondevs.",
-        creator: "@dragondevs_",
+        creator: `@${X_HANDLE}`,
     },
 };
 

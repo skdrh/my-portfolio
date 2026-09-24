@@ -1,5 +1,6 @@
-import {ArrowUpRight, Github} from "lucide-react";
+import {ArrowUpRight} from "lucide-react";
 
+import {GitHubIcon} from "@/components/brand-icons";
 import {Section} from "@/components/section";
 import {ARCHIVE} from "@/data/archive";
 import {SOCIALS} from "@/lib/site";
@@ -45,7 +46,7 @@ export function Archive() {
                                         rel="noreferrer noopener"
                                         className="group/link inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.06em] text-muted-foreground uppercase transition-colors hover:text-foreground"
                                     >
-                                        <Github className="size-3.5" />
+                                        <GitHubIcon className="size-3.5" />
                                         Source
                                     </a>
                                 ) : null}
@@ -72,7 +73,7 @@ export function Archive() {
                 rel="noreferrer noopener"
                 className="group mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.06em] text-muted-foreground uppercase transition-colors hover:text-foreground"
             >
-                <Github className="size-3.5" />
+                <GitHubIcon className="size-3.5" />
                 More on GitHub
                 <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
             </a>

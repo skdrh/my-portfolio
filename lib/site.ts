@@ -14,8 +14,14 @@ export const SITE_URL = "https://salman.dragondevs.co";
 
 export const NAME = "Salman Khan";
 
-/** Used in the wordmark and the <title> template. */
-export const HANDLE = "salman khan";
+/** The wordmark at the top of every page, repeated in the footer. */
+export const HANDLE = "skdrh_";
+
+/** Personal X account — linked on the page and credited on the share card. */
+export const X_HANDLE = "skdrh_";
+
+/** LinkedIn username — the hero and the contact list show it, the URL is built from it. */
+export const LINKEDIN_HANDLE = "skdrh";
 
 /**
  * "Software architect" is the searched term and the one the work leans on;
@@ -60,32 +66,31 @@ export const WHATSAPP_E164 = "+923466955928";
 export const SOCIALS = {
     github: "https://github.com/skdrh",
     githubOrg: "https://github.com/dragon-devs",
-    linkedin: "https://www.linkedin.com/in/skdrh/",
-    x: "https://x.com/dragondevs_",
+    linkedin: `https://www.linkedin.com/in/${LINKEDIN_HANDLE}/`,
+    x: `https://x.com/${X_HANDLE}`,
 } as const;
 
 export const COMPANY = {
     name: "dragondevs",
     url: "https://dragondevs.co",
     caseStudies: "https://dragondevs.co/case-studies",
+    x: "https://x.com/dragondevs_",
 } as const;
 
 /** Year the timeline starts — the single place the "since" figures derive from. */
 export const CAREER_START = 2017;
 
-export const YEARS_BUILDING = new Date().getFullYear() - CAREER_START;
-
 /**
  * The four figures the top of the page leads with.
  *
- * `28+ projects` is carried over verbatim from the previous portfolio; the
- * other three are derived from the timeline and the published case studies,
- * so they stay true without anyone maintaining them.
+ * `8+ yrs` and `30+ projects` are floors Salman set himself — a floor stays
+ * true as both keep growing. The other two come from the published case
+ * studies, so they stay true without anyone maintaining them.
  */
 export const FACTS: {figure: string; label: string}[] = [
-    {figure: `${YEARS_BUILDING} yrs`, label: `building software, since ${CAREER_START}`},
+    {figure: "8+ yrs", label: `building software, since ${CAREER_START}`},
     {figure: "4", label: "production systems, written up as case studies"},
-    {figure: "28+", label: "projects delivered end to end"},
+    {figure: "30+", label: "projects delivered end to end"},
     {figure: "1", label: "person behind Bizstock — design, code and go-to-market"},
 ];
 

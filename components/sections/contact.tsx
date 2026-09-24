@@ -1,8 +1,16 @@
-import {ArrowUpRight, Github, Linkedin, Mail, MessageCircle} from "lucide-react";
+import {ArrowUpRight, Mail} from "lucide-react";
 
+import {GitHubIcon, LinkedInIcon, WhatsAppIcon, XIcon} from "@/components/brand-icons";
 import {ContactForm} from "@/components/contact-form";
 import {Section} from "@/components/section";
-import {CONTACT_EMAIL, SOCIALS, TIMEZONE, WHATSAPP_E164} from "@/lib/site";
+import {
+    CONTACT_EMAIL,
+    LINKEDIN_HANDLE,
+    SOCIALS,
+    TIMEZONE,
+    WHATSAPP_E164,
+    X_HANDLE,
+} from "@/lib/site";
 
 const CHANNELS = [
     {
@@ -12,24 +20,31 @@ const CHANNELS = [
         icon: Mail,
     },
     {
+        label: "X",
+        value: `@${X_HANDLE}`,
+        href: SOCIALS.x,
+        icon: XIcon,
+        external: true,
+    },
+    {
         label: "LinkedIn",
-        value: "in/skdrh",
+        value: `in/${LINKEDIN_HANDLE}`,
         href: SOCIALS.linkedin,
-        icon: Linkedin,
+        icon: LinkedInIcon,
         external: true,
     },
     {
         label: "WhatsApp",
         value: WHATSAPP_E164,
         href: `https://wa.me/${WHATSAPP_E164.replace(/[^\d]/g, "")}`,
-        icon: MessageCircle,
+        icon: WhatsAppIcon,
         external: true,
     },
     {
         label: "GitHub",
         value: "github.com/skdrh",
         href: SOCIALS.github,
-        icon: Github,
+        icon: GitHubIcon,
         external: true,
     },
 ];
