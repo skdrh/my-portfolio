@@ -11,7 +11,7 @@
  * data.
  */
 
-export const SITE_URL = "https://salman.dragondevs.co";
+export const SITE_URL = "https://skdrh.dragondevs.co";
 
 export const NAME = "Salman Khan";
 

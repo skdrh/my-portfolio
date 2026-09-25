@@ -1,4 +1,4 @@
-# salman.dragondevs.co
+# skdrh.dragondevs.co
 
 Personal site for Salman Khan (skdrh) — software architect and product
 builder, founder of [dragondevs](https://dragondevs.co).
