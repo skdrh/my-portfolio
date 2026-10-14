@@ -3,16 +3,14 @@ import {BUILT} from "@/data/built";
 import {GITHUB_HANDLE} from "@/lib/site";
 
 /**
- * The earlier projects as a two-column register: name, then the short
- * version. The same shape as the table in the GitHub profile README, and
- * deliberately lighter than the case studies above it.
+ * The earlier projects as a register: name, the short version, the stack.
+ * The same shape as the table in the GitHub profile README, and deliberately
+ * lighter than the case studies above it — no drawings, just the record.
  */
 export function Built() {
     return (
         <Section
             id="built"
-            index={3}
-            label="Things I've built"
             title="Earlier builds, most of them open source."
             intro="Where the habits behind the case studies were formed. Smaller, scrappier, and every one of them shipped."
         >
@@ -20,23 +18,24 @@ export function Built() {
                 {BUILT.map((item) => (
                     <li
                         key={item.title}
-                        className="reveal grid gap-1.5 border-b border-border py-5 sm:grid-cols-[200px_minmax(0,1fr)_auto] sm:items-baseline sm:gap-8"
+                        className="grid gap-2 border-b border-border py-6 sm:grid-cols-[220px_minmax(0,1fr)_auto] sm:items-baseline sm:gap-10"
                     >
-                        <p className="font-display text-[16px] font-semibold tracking-[-0.02em] text-foreground">
+                        <p className="font-display text-[18px] font-semibold tracking-[-0.025em] text-foreground">
                             {item.title}
                         </p>
-                        <p className="text-pretty text-[14px] leading-6 text-muted-foreground">
+                        <p className="text-pretty text-[15px] leading-[1.7] text-muted-foreground">
                             {item.blurb}
                         </p>
-                        <p className="font-mono text-[11px] text-faint sm:text-right">
-                            {item.stack.join(" · ")}
+                        <p className="font-mono text-[12px] text-faint sm:text-right">
+                            {item.stack.join(", ")}
                         </p>
                     </li>
                 ))}
             </ul>
 
-            <p className="mt-6 font-mono text-[11px] tracking-[0.06em] text-muted-foreground uppercase">
-                …plus 20+ more on GitHub, as {GITHUB_HANDLE}
+            <p className="mt-7 text-[14.5px] text-muted-foreground">
+                …plus 20+ more on GitHub, as{" "}
+                <span className="font-mono text-[13.5px] text-foreground">{GITHUB_HANDLE}</span>.
             </p>
         </Section>
     );

@@ -98,6 +98,8 @@ export function personSchema() {
             "Cross-platform app development",
             "Deployment and DevOps",
             "AI integration",
+            // The 2017 starting point, told in the experience section.
+            "Graphic design",
             "TypeScript",
             "Next.js",
             "React",

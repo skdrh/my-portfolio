@@ -2,25 +2,28 @@ import {Section} from "@/components/section";
 import {PRINCIPLES} from "@/data/principles";
 
 /**
- * Three rules, set as large as they deserve. The rule is the display line;
- * the reason sits under it in the reading face.
+ * Three rules, set as large as they deserve — the rule as a display line
+ * across the page, the reason beside it in the reading face. Rows rather than
+ * cards: they are one list read top to bottom, not three things to compare.
  */
 export function HowIWork() {
     return (
-        <Section id="how-i-work" index={6} label="How I work" title="Three rules, every project.">
-            <ol className="grid gap-px border border-border bg-border md:grid-cols-3">
-                {PRINCIPLES.map((item, i) => (
-                    <li key={item.rule} className="reveal flex flex-col bg-background p-6 sm:p-8">
-                        <span className="ref">{String(i + 1).padStart(2, "0")}</span>
-                        <p className="mt-5 font-display text-[26px] leading-[1.1] font-semibold tracking-[-0.035em] text-foreground sm:text-[30px]">
+        <Section id="how-i-work" title="Three rules, every project." className="bg-surface/60">
+            <ul className="border-t border-border-strong">
+                {PRINCIPLES.map((item) => (
+                    <li
+                        key={item.rule}
+                        className="grid gap-3 border-b border-border-strong py-8 sm:py-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-baseline lg:gap-12"
+                    >
+                        <p className="font-display text-[34px] leading-[1.02] font-semibold tracking-[-0.045em] text-foreground sm:text-[50px] lg:text-[58px]">
                             {item.rule}
                         </p>
-                        <p className="mt-3 text-pretty text-[14px] leading-7 text-muted-foreground">
+                        <p className="max-w-md text-pretty text-[16px] leading-[1.7] text-muted-foreground sm:text-[17px]">
                             {item.why}
                         </p>
                     </li>
                 ))}
-            </ol>
+            </ul>
         </Section>
     );
 }

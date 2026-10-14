@@ -2,26 +2,32 @@ import {Section} from "@/components/section";
 import {TOOLBOX} from "@/data/toolbox";
 
 /**
- * The toolbox as a specification table, not a wall of logos. Set in mono and
- * grouped by job, it reads faster than thirty icons and costs nothing to load.
+ * The toolbox as a set of labelled trays, not a wall of logos. Grouped by the
+ * job each tool does, it reads faster than thirty icons and costs nothing to
+ * load. Two columns on a wide screen, so the groups can be compared side by
+ * side; the last tray takes the full width when the count is odd.
  */
 export function Toolbox() {
     return (
-        <Section id="toolbox" index={4} label="Toolbox" title="What I build with.">
-            <dl className="border-t border-border">
-                {TOOLBOX.map((group) => (
+        <Section
+            id="toolbox"
+            title="What I build with."
+            intro="My tech stack, grouped by the job each part does."
+        >
+            <dl className="grid gap-px border border-border bg-border md:grid-cols-2">
+                {TOOLBOX.map((group, i) => (
                     <div
                         key={group.label}
-                        className="reveal grid gap-3 border-b border-border py-5 sm:grid-cols-[160px_1fr] sm:gap-8"
+                        className={`bg-background p-6 sm:p-7 ${
+                            i === TOOLBOX.length - 1 && TOOLBOX.length % 2 === 1 ? "md:col-span-2" : ""
+                        }`}
                     >
-                        <dt className="field pt-1">{group.label}</dt>
-                        <dd className="flex flex-wrap gap-x-5 gap-y-2">
+                        <dt className="font-display text-[16px] font-semibold tracking-[-0.02em] text-foreground">
+                            {group.label}
+                        </dt>
+                        <dd className="mt-4 flex flex-wrap gap-1.5">
                             {group.items.map((item) => (
-                                <span
-                                    key={item}
-                                    className="inline-flex items-center gap-2 font-mono text-[13px] text-foreground"
-                                >
-                                    <span aria-hidden className="size-1.5 shrink-0 bg-signal" />
+                                <span key={item} className="tag text-[12px] text-foreground/90">
                                     {item}
                                 </span>
                             ))}

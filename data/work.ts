@@ -17,6 +17,12 @@ export interface WorkItem {
     headline: string;
     /** What it is and why it matters. Two sentences at most. */
     summary: string;
+    /**
+     * Caption for the system drawing beside the entry — one sentence saying
+     * what the drawing shows. Same sourcing rule as everything else here:
+     * nothing in the drawing or the caption goes past what the case study says.
+     */
+    diagram: string;
     year: string;
     status: "Live" | "Active" | "In development";
     stack: string[];
@@ -31,6 +37,7 @@ export const WORK: WorkItem[] = [
         headline: "A point-of-sale that never waits for the internet.",
         summary:
             "Offline-first inventory and POS: billing, stock and reports stay instant with no connection, then sync across devices when it's back. Desktop and Android from one codebase, in English and Urdu.",
+        diagram: "Every till sells from its own database and syncs when the connection comes back.",
         year: "2025 — now",
         status: "Active",
         stack: ["Tauri", "Rust", "React", "SQLite", "Drizzle ORM"],
@@ -43,6 +50,7 @@ export const WORK: WorkItem[] = [
         headline: "One workspace instead of spreadsheets and chat threads.",
         summary:
             "A bilingual, role-aware platform for a Saudi design studio: projects, clients, designers, contracts and quotations in one searchable place. A new project now takes minutes to set up.",
+        diagram: "Spreadsheets and chat threads, folded into one searchable, role-aware workspace.",
         year: "2025",
         status: "Live",
         stack: ["Next.js", "PostgreSQL", "Drizzle ORM", "next-intl"],
@@ -55,6 +63,7 @@ export const WORK: WorkItem[] = [
         headline: "A 25-year cooling brand, brought online end to end.",
         summary:
             "Headless, bilingual commerce with a guided product finder, local checkout and service requests. The marketing team runs products and content without a developer.",
+        diagram: "A headless store: marketing runs the CMS, the storefront handles finding, buying and service.",
         year: "2025",
         status: "Live",
         stack: ["Next.js", "Payload CMS", "PostgreSQL", "PayTabs"],
@@ -67,6 +76,7 @@ export const WORK: WorkItem[] = [
         headline: "File transfer that falls back instead of failing.",
         summary:
             "Shared Wi-Fi, its own hotspot, or animated QR codes read by the camera, whichever works. A 5 MB file arrived byte-identical at 38.5 MB/s with nothing installed on the receiving device.",
+        diagram: "Three ways across, in order. When one is not available, it falls back to the next.",
         year: "2026",
         status: "In development",
         stack: ["Flutter", "Dart", "Kotlin"],

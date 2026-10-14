@@ -29,7 +29,11 @@ export default function Home() {
         <>
             <SiteHeader />
 
-            <main id="content" className="w-full overflow-x-hidden">
+            {/* `clip`, not `hidden`: hidden would make <main> a scroll
+                container of its own — one that never scrolls — and every
+                scroll-driven animation inside would measure against it
+                instead of the window, and sit still. */}
+            <main id="content" className="w-full overflow-x-clip">
                 <Hero />
                 <Now />
                 <Work />

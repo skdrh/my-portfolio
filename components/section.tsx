@@ -3,58 +3,82 @@ import type {ReactNode} from "react";
 import {cn} from "@/lib/utils";
 
 /**
- * Every section opens with a title block, the way a drawing sheet does.
+ * Every section opens with its heading, large, and nothing stacked on top of
+ * it. The numbered, bracketed label that used to sit above each one said the
+ * same thing as the header nav in smaller type; the heading is the label.
  *
- * A rule runs the full width with the sheet reference sitting on it — number,
- * then the bracketed callout — and the heading hangs below at full measure.
- * The content then gets the entire column rather than being pushed into a
- * narrow track by a sticky gutter, which is what lets the project register and
- * the stack table breathe at the widths they actually need.
+ * Two layouts. `stacked` puts the heading and its intro side by side above
+ * full-width content, which is what the drawings and the register need.
+ * `split` pins the heading in a left column while a list scrolls past it on
+ * the right — for the sections that are read top to bottom, like the
+ * timeline and the questions.
+ *
+ * The section is named by its heading (`aria-labelledby`), so each one is a
+ * labelled region a screen reader can jump between.
  */
 export function Section({
     id,
-    index,
-    label,
     title,
     intro,
     children,
+    layout = "stacked",
     className,
 }: {
     id: string;
-    /** Zero-padded on render — pass 1, get "01". */
-    index: number;
-    label: string;
     title: string;
     intro?: ReactNode;
     children: ReactNode;
+    layout?: "stacked" | "split";
     className?: string;
 }) {
+    const titleId = `${id}-title`;
+    const split = layout === "split";
+
+    const header = (
+        <header
+            className={
+                split
+                    ? "lg:sticky lg:top-28 lg:self-start"
+                    : "grid gap-x-12 gap-y-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end"
+            }
+        >
+            <h2
+                id={titleId}
+                className="font-display text-[32px] leading-[1.04] font-semibold tracking-[-0.045em] text-foreground sm:text-[42px] lg:text-[46px]"
+            >
+                {title}
+            </h2>
+            {intro ? (
+                <div
+                    className={cn(
+                        "max-w-xl space-y-4 text-pretty text-[15.5px] leading-[1.75] text-muted-foreground",
+                        split && "mt-6",
+                    )}
+                >
+                    {intro}
+                </div>
+            ) : null}
+        </header>
+    );
+
     return (
-        <section id={id} className={cn("scroll-mt-20 border-b border-border", className)}>
-            <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-                {/* Title block: reference on the rule, heading beneath it. */}
-                <header className="reveal">
-                    <div className="flex items-center gap-4">
-                        <span className="ref shrink-0">
-                            {String(index).padStart(2, "0")}
-                        </span>
-                        <span className="callout shrink-0">{label}</span>
-                        <span aria-hidden className="h-px flex-1 bg-border" />
+        <section
+            id={id}
+            aria-labelledby={titleId}
+            className={cn("scroll-mt-20 border-b border-border", className)}
+        >
+            <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+                {split ? (
+                    <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
+                        {header}
+                        <div className="min-w-0">{children}</div>
                     </div>
-
-                    <div className="mt-7 grid gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
-                        <h2 className="font-display text-[28px] leading-[1.06] font-semibold tracking-[-0.04em] text-foreground sm:text-[38px]">
-                            {title}
-                        </h2>
-                        {intro ? (
-                            <p className="text-pretty text-[14.5px] leading-7 text-muted-foreground sm:text-[15px]">
-                                {intro}
-                            </p>
-                        ) : null}
-                    </div>
-                </header>
-
-                <div className="mt-12">{children}</div>
+                ) : (
+                    <>
+                        {header}
+                        <div className="mt-12 sm:mt-16">{children}</div>
+                    </>
+                )}
             </div>
         </section>
     );

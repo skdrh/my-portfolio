@@ -1,39 +1,47 @@
 import {Section} from "@/components/section";
-import {EXPERIENCE} from "@/data/experience";
+import {EXPERIENCE, STORY} from "@/data/experience";
 import {CAREER_START} from "@/lib/site";
 
 /**
- * The timeline, newest first, one hairline row per role with the years in a
- * mono gutter. Roles are not headings: six job titles in the page outline
- * added nothing a reader or a crawler needed.
+ * The story on the left, pinned while the timeline scrolls past on the
+ * right — newest first, one node per role on a single drawn line, with the
+ * current one live. Roles are not headings: six job titles in the page
+ * outline added nothing a reader or a crawler needed.
  */
 export function Experience() {
     return (
-        <Section id="experience" index={5} label="Experience" title={`Building since ${CAREER_START}.`}>
-            <ol className="border-t border-border">
+        <Section
+            id="experience"
+            layout="split"
+            title={`Building since ${CAREER_START}.`}
+            intro={STORY.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+            ))}
+        >
+            <ol className="relative">
+                {/* The line the nodes sit on. */}
+                <span aria-hidden className="absolute top-2 bottom-2 left-[3.5px] w-px bg-border-strong" />
+
                 {EXPERIENCE.map((role) => (
-                    <li
-                        key={`${role.from}-${role.company}`}
-                        className="reveal grid gap-2 border-b border-border py-5 sm:grid-cols-[160px_1fr] sm:gap-8"
-                    >
-                        <p className="flex items-center gap-2.5">
-                            <time className="tabular font-mono text-[11px] tracking-[0.06em] text-foreground">
-                                {role.from} — {role.to}
-                            </time>
-                            {role.current ? <span className="pulse-dot" aria-hidden /> : null}
+                    <li key={`${role.from}-${role.company}`} className="relative pb-10 pl-9 last:pb-0">
+                        <span
+                            aria-hidden
+                            className={
+                                role.current
+                                    ? "pulse-dot absolute top-[7px] left-px"
+                                    : "absolute top-[6px] left-0 size-2 border border-border-strong bg-background"
+                            }
+                        />
+                        <time className="tabular font-mono text-[12px] text-muted-foreground">
+                            {role.from} — {role.to}
+                        </time>
+                        <p className="mt-2 font-display text-[19px] leading-snug font-semibold tracking-[-0.025em] text-foreground">
+                            {role.title}
+                            <span className="font-normal text-muted-foreground">, {role.company}</span>
                         </p>
-                        <div className="min-w-0">
-                            <p className="font-display text-[16px] leading-snug font-semibold tracking-[-0.02em] text-foreground">
-                                {role.title}
-                                <span className="font-mono text-[12px] font-normal text-muted-foreground">
-                                    {" "}
-                                    · {role.company}
-                                </span>
-                            </p>
-                            <p className="mt-1 text-pretty text-[14px] leading-6 text-muted-foreground">
-                                {role.note}
-                            </p>
-                        </div>
+                        <p className="mt-1.5 max-w-xl text-pretty text-[15px] leading-[1.7] text-muted-foreground">
+                            {role.note}
+                        </p>
                     </li>
                 ))}
             </ol>

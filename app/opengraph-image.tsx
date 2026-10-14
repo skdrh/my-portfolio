@@ -2,7 +2,7 @@ import {readFile} from "node:fs/promises";
 import {join} from "node:path";
 import {ImageResponse} from "next/og";
 
-import {ALIAS, NAME, PORTRAIT, ROLE, SITE_URL} from "@/lib/site";
+import {ALIAS, NAME, PORTRAIT, ROLE, ROLE_SPOKEN, SITE_URL} from "@/lib/site";
 
 export const alt = `${NAME} (${ALIAS}) — ${ROLE}`;
 export const size = {width: 1200, height: 630};
@@ -15,9 +15,10 @@ const portrait = `data:image/jpeg;base64,${await readFile(
 )}`;
 
 /**
- * The share card: the page's drafting sheet on the left — navy ground,
- * measured grid, registration ticks, the name and the handle — and the
- * portrait on the right, so a shared link shows who it is about.
+ * The share card: the page's hero in miniature — navy ground, the rings
+ * carrying out from the portrait, registration ticks, the name and the
+ * handle on the left, and the portrait on the right, so a shared link shows
+ * who it is about. No grid, same as the page.
  *
  * Deliberately no remote font fetch — pulling Space Grotesk over the network
  * at render time adds a failure mode that turns the card blank, and the system
@@ -28,8 +29,10 @@ export default function Image() {
     const INK = "#e9edf6";
     const MUTED = "#909db8";
     const SIGNAL = "#4d9bff";
-    const GRID = "rgba(120,165,255,0.10)";
     const PHOTO_WIDTH = 520;
+    // Centre of the portrait — where the rings are drawn from, as on the page.
+    const RING_CX = 1200 - PHOTO_WIDTH / 2;
+    const RINGS = [300, 390, 480, 570, 660, 750];
 
     const tick = (pos: object) => ({
         position: "absolute" as const,
@@ -48,11 +51,33 @@ export default function Image() {
                     background: BG,
                     fontFamily: "sans-serif",
                     position: "relative",
-                    // The sheet grid, drawn the same way the CSS does it.
-                    backgroundImage: `linear-gradient(to right, ${GRID} 1px, transparent 1px), linear-gradient(to bottom, ${GRID} 1px, transparent 1px)`,
-                    backgroundSize: "48px 48px",
+                    // A faint pool of light behind the name, as behind the heading.
+                    backgroundImage: "radial-gradient(circle at 18% 22%, rgba(77,155,255,0.14), rgba(7,11,20,0) 55%)",
                 }}
             >
+                {/* The rings, centred on the portrait; the photo covers their
+                    middle and the left halves arc across the sheet. */}
+                <svg
+                    width="1200"
+                    height="630"
+                    viewBox="0 0 1200 630"
+                    style={{position: "absolute", top: 0, left: 0}}
+                >
+                    {RINGS.map((r, i) => (
+                        <circle
+                            key={r}
+                            cx={RING_CX}
+                            cy={315}
+                            r={r}
+                            fill="none"
+                            stroke={SIGNAL}
+                            strokeOpacity={0.3 - i * 0.04}
+                            strokeWidth={1.5}
+                            strokeDasharray={i % 2 === 1 ? "3 9" : undefined}
+                        />
+                    ))}
+                </svg>
+
                 {/* The portrait, full height on the right, fading into the sheet
                     along its left edge so the two halves read as one card. */}
                 {/* Satori renders a plain <img>; next/image does not exist here. */}
@@ -109,13 +134,11 @@ export default function Image() {
                         padding: "68px 40px 64px 76px",
                     }}
                 >
-                    {/* Bracketed callout, exactly as the page sets it. */}
-                    <div style={{display: "flex", alignItems: "center", gap: 12}}>
-                        <div style={{fontSize: 22, color: SIGNAL, fontWeight: 700}}>[</div>
-                        <div style={{fontSize: 17, letterSpacing: 4, color: MUTED}}>
-                            {ROLE.toUpperCase()}
-                        </div>
-                        <div style={{fontSize: 22, color: SIGNAL, fontWeight: 700}}>]</div>
+                    {/* The kicker, as the hero sets it: a short signal rule, then
+                        the role in plain words. */}
+                    <div style={{display: "flex", alignItems: "center", gap: 18}}>
+                        <div style={{width: 34, height: 3, background: SIGNAL}} />
+                        <div style={{fontSize: 25, color: MUTED}}>{ROLE_SPOKEN}</div>
                     </div>
 
                     <div style={{display: "flex", flexDirection: "column"}}>

@@ -5,30 +5,32 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    salman khan — design system
 
-   The organising idea is a drafting sheet.
+   The organising idea is a set of drawings.
 
-   This site ships exactly one photograph — the portrait in the hero, framed as
-   FIG. 01 — so the page has to carry itself on structure almost everywhere.
-   The structure it borrows is the engineering drawing: a blue ground,
-   a fine measured grid, registration ticks at the corners of anything that
-   matters, and every label set in a drafting mono inside square brackets —
-   the way a callout is annotated on a real sheet.
+   The page opens on one — the portrait, framed as FIG. 01, with a protractor
+   dial set out around it and faint rings carrying outward across the hero —
+   and every case study further down gets its own: the system drawn the way an
+   architect would sketch it on a whiteboard. A page about building systems
+   should show the systems.
 
-   That is not decoration for its own sake. The pitch on this page is
-   "architecture, interface and code", and a blueprint is what the first of
-   those three actually looks like.
+   Everything between the drawings stays quiet so they can be loud. Words are
+   set in sentence case at sizes a person can read without leaning in; mono is
+   kept for things that genuinely behave like data — figure numbers, years,
+   stack names, the labels inside a drawing. There is no grid behind the page:
+   the drawings carry the structure, and a ruled background competing with
+   them only made the sheet look busy.
 
    One accent, and it has a job:
 
      signal  #4d9bff   azure — what is live, load-bearing, mine
 
-   On light it never carries text; it lives in rules, ticks and grid lines
+   On light it rarely carries text; it lives in rules, ticks and drawn lines
    while the words stay ink, and `--signal-ink` is the darkened cousin used on
-   the rare occasion colour must be read. Hairlines are blue-tinted rather than
+   the occasions colour must be read. Hairlines are blue-tinted rather than
    neutral grey, which is what keeps the whole surface reading as one sheet.
 
-   Geometry is hard: zero radius. Nothing here is a rounded card, because
-   nothing on a drawing is.
+   Geometry is hard: zero radius. The only curves on the page are the ones in
+   the drawings, which is where the eye should go.
    ──────────────────────────────────────────────────────────────────────────── */
 
 :root {
@@ -41,14 +43,11 @@
 
   --muted: #eef1f7;
   --muted-foreground: #4f5a6e;
-  /* Solved for 4.5:1 on both --background and --surface. This colour carries
-     every bracketed label, and those labels are the page's structure. */
+  /* Solved for 4.5:1 on both --background and --surface. */
   --faint: #697283;
 
   --border: #dde3ee;
   --border-strong: #c3ccdd;
-  --grid-line: #e4e9f3;
-  --grid-major: #d5deee;
   --input: #ccd4e2;
   --ring: #2772cc;
 
@@ -80,8 +79,6 @@
 
   --border: rgb(120 165 255 / 14%);
   --border-strong: rgb(120 165 255 / 26%);
-  --grid-line: rgb(120 165 255 / 7%);
-  --grid-major: rgb(120 165 255 / 13%);
   --input: rgb(120 165 255 / 22%);
   --ring: #4d9bff;
 
@@ -107,7 +104,6 @@
   --color-faint: var(--faint);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
-  --color-grid-line: var(--grid-line);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-signal: var(--signal);
@@ -171,39 +167,28 @@
 }
 
 @layer components {
-  /* ── Callout label ────────────────────────────────────────────────────────
-     Square brackets rather than a coloured bead: this is how an annotation is
-     marked on a drawing, the brackets take the accent, and the words inside
-     stay full-contrast ink on both themes. */
+  /* ── Kicker ───────────────────────────────────────────────────────────────
+     The single line above the hero heading: what I do, in plain words, led
+     by a short signal rule. Sentence case on purpose — the bracketed,
+     tracked-out capitals it replaces read like a form field, not a person. */
   .callout {
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 10.5px;
-    line-height: 1;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted-foreground);
     display: inline-flex;
-    align-items: baseline;
-    gap: 0.45em;
-  }
-
-  .callout::before,
-  .callout::after {
-    color: var(--signal-ink);
-    font-weight: 700;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--muted-foreground);
   }
 
   .callout::before {
-    content: "[";
-  }
-
-  .callout::after {
-    content: "]";
-  }
-
-  .dark .callout::before,
-  .dark .callout::after {
-    color: var(--signal);
+    content: "";
+    flex: none;
+    width: 22px;
+    height: 2px;
+    background: var(--signal);
   }
 
   /* ── Wordmark underscore ──────────────────────────────────────────────────
@@ -226,35 +211,36 @@
     animation: sk-caret 1.05s steps(1) infinite;
   }
 
-  /* A drawing reference — 01, 02. */
+  /* A figure reference — FIG. 01, FIG. 02. The one place numbering earns its
+     keep: the drawings really are a numbered set. */
   .ref {
     font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
+    font-size: 11px;
+    letter-spacing: 0.1em;
     color: var(--faint);
     font-variant-numeric: tabular-nums;
   }
 
   /* ── Field label ──────────────────────────────────────────────────────────
-     A mono key in a fixed gutter with the value beside it. The repeating unit
-     of the profile block, the stack table and the project title-blocks. */
+     A small sentence-case label: form fields, card kinds, the footer index.
+     Set in the reading face so it reads as a word, not a code. */
   .field {
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--faint);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--muted-foreground);
   }
 
   /* Technology tag. Border-only, square, no fill. */
   .tag {
     font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 11px;
+    font-size: 11.5px;
     line-height: 1;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     color: var(--muted-foreground);
     border: 1px solid var(--border);
-    padding: 5px 7px;
+    padding: 6px 8px;
     white-space: nowrap;
     transition: border-color 160ms ease, color 160ms ease;
   }
@@ -262,6 +248,46 @@
   .group:hover .tag {
     border-color: var(--border-strong);
     color: var(--foreground);
+  }
+
+  /* ── Buttons ──────────────────────────────────────────────────────────────
+     Two kinds, both sentence case in the display face. The filled one gets a
+     soft pool of its own colour underneath in dark, the way a lit key does. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 46px;
+    padding-inline: 1.375rem;
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    transition: background-color 160ms ease, border-color 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
+  }
+
+  .btn-primary {
+    background: var(--signal-solid);
+    color: var(--signal-on-solid);
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .dark .btn-primary {
+    box-shadow: 0 10px 34px -12px rgb(77 155 255 / 0.65);
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--border-strong);
+    color: var(--foreground);
+  }
+
+  .btn-secondary:hover {
+    background: var(--muted);
   }
 
   /* ── Registration ticks ───────────────────────────────────────────────────
@@ -295,22 +321,6 @@
     border-bottom: 2px solid var(--signal);
   }
 
-  /* ── The hero sheet ───────────────────────────────────────────────────────
-     A measured drawing ground: a fine 32px grid with a heavier line every
-     fifth square, the way engineering paper is printed. Faded out before it
-     reaches the section edges so there is no hard line where it stops. Used
-     on the hero and nowhere else — it is the ground the page is drawn on, not
-     a texture applied everywhere. */
-  .hero-sheet {
-    background-image:
-      linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
-      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    background-size: 160px 160px, 160px 160px, 32px 32px, 32px 32px;
-    mask-image: radial-gradient(120% 90% at 30% 25%, #000 35%, transparent 80%);
-  }
-
   /* The hero's moving parts. Everything here animates `transform` and
      nothing else, on its own compositor layer, so the motion costs no layout
      and no repaint — the GPU turns a finished bitmap. No JavaScript, no
@@ -340,6 +350,29 @@
   .hero-dial {
     will-change: transform;
     animation: sk-spin 160s linear infinite;
+  }
+
+  /* ── Drawings ─────────────────────────────────────────────────────────────
+     A connection that is live in a diagram is dashed in the signal colour,
+     and its dashes travel along the line in the direction the data goes —
+     driven by the page's scroll rather than a clock (see the motion section
+     below), so a drawing only moves while someone is moving past it and costs
+     nothing at rest. `.plate` is the figure whose passage through the
+     viewport drives it. */
+  .flow {
+    stroke-dasharray: 5 7;
+  }
+
+  .plate {
+    view-timeline-name: --plate;
+  }
+
+  /* ── Footer sign-off ──────────────────────────────────────────────────────
+     The handle, large and nearly invisible. Drawn as generated content from
+     `data-mark` rather than as text: it is decoration, so it should not be
+     read out, indexed, or held to the contrast a sentence needs. */
+  .footer-mark::before {
+    content: attr(data-mark);
   }
 
   /* A live pulse for active / available states. */
@@ -376,6 +409,10 @@
   to { transform: translate3d(5%, 4%, 0) scale(1.12); }
 }
 
+@keyframes sk-flow {
+  to { stroke-dashoffset: -120; }
+}
+
 /* The wordmark's underscore, blinking like a terminal caret. */
 @keyframes sk-caret {
   0%, 49% { opacity: 1; }
@@ -388,27 +425,44 @@
 }
 
 /* ─── Motion ─────────────────────────────────────────────────────────────────
-   One entrance behaviour, used sparingly: content lifts a few pixels as it
-   enters the viewport. Implemented with a scroll-driven animation so there is
-   no observer, no JavaScript and no hydration cost. Browsers without support
-   simply show the content — which is the correct fallback, and also what
-   anyone asking for reduced motion gets. */
+   Motion is kept for things that are live: the dial turning, the sweep, the
+   pulse on what is available, and data moving along the drawings' live lines
+   as they scroll past. Nothing fades in for the sake of it — content is on
+   the page when the page is.
+
+   The one entrance is the hero's, on load. Its words only settle
+   (`.animate-settle`, transform alone) instead of fading in: text that starts
+   at opacity 0 is not counted as painted, so the browser's "largest
+   contentful paint" used to fall on the tiny wordmark in the header, late.
+   The heading is now on screen from the first frame; the portrait still
+   rises in just behind it. */
 
 @keyframes sk-rise {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: none; }
 }
 
+@keyframes sk-settle {
+  from { transform: translateY(10px); }
+  to { transform: none; }
+}
+
 .animate-rise {
   animation: sk-rise 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.animate-settle {
+  animation: sk-settle 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Scroll-driven, so it runs only while the page moves, with no observer and
+   no JavaScript. Browsers without support keep the dashes standing still. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: sk-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 40%;
+    /* Data moves along the live lines as their drawing scrolls past. */
+    .flow {
+      animation: sk-flow linear both;
+      animation-timeline: --plate;
     }
   }
 }
@@ -416,7 +470,7 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
-  .animate-rise, .reveal, .pulse-dot::after,
+  .animate-rise, .animate-settle, .pulse-dot::after, .flow,
   .hero-glow, .hero-sweep, .hero-dial, .wordmark-caret { animation: none !important; }
 
   *, *::before, *::after {

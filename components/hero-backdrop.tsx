@@ -1,8 +1,9 @@
 /**
- * The hero's drawing: engineering paper under the whole section, and a
- * construction drawing set out around the portrait — a protractor dial, two
- * rings, centre lines, bearings and a dimension, with a scanner sweep and a
- * slow glow moving through it.
+ * The hero's drawing: a construction drawing set out around the portrait — a
+ * protractor dial, two rings, centre lines, bearings and a dimension, with a
+ * scanner sweep and a slow glow moving through it — and, past the dial, faint
+ * rings carrying out across the whole hero, so the section reads as one
+ * drawing with the person at its centre rather than a photo on ruled paper.
  *
  * Built to cost almost nothing. It is server-rendered SVG and CSS: no client
  * JavaScript, no canvas, no image requests. The three moving layers animate
@@ -33,12 +34,60 @@ const BEARINGS = [
     {label: "270", x: 52, y: C + 4},
 ];
 
-/** Engineering paper for the whole hero, plus a faint wash behind the heading. */
-export function HeroSheet() {
+/**
+ * The rings beyond the dial, in a 1000-unit drawing that is 5.2 portraits
+ * wide — so one portrait width is ~192 units. They start just outside the
+ * dial's tick ring and step outward at roughly the dial's own ring spacing,
+ * fading as they go; every other one is dashed, like a construction circle
+ * that was never inked.
+ *
+ * The fade is in each ring's own opacity rather than a radial mask over the
+ * layer: the rings share one centre, so a mask could only ever dim each ring
+ * evenly anyway — and a mask on a layer this size is real work to composite.
+ */
+const RINGS = [
+    {r: 196, opacity: 0.3},
+    {r: 262, opacity: 0.18, dashed: true},
+    {r: 330, opacity: 0.12},
+    {r: 400, opacity: 0.07, dashed: true},
+    {r: 470, opacity: 0.04},
+];
+
+/** The ground under the whole hero: a faint wash of light behind the heading. */
+export function HeroGround() {
     return (
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="hero-sheet absolute inset-0" />
-            <div className="absolute -top-40 -left-40 size-[560px] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--signal)_9%,transparent),transparent)]" />
+            <div className="absolute -top-48 -left-48 size-[620px] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--signal)_10%,transparent),transparent)]" />
+        </div>
+    );
+}
+
+/**
+ * The rings, centred on the portrait like the dial, and behind it. Rendered
+ * inside the portrait's <figure> for the same reason the dial is: it follows
+ * the photo at every breakpoint, and the hero's overflow clip trims the rest.
+ */
+export function SignalRings() {
+    return (
+        <div
+            aria-hidden
+            className="pointer-events-none absolute top-[46%] left-1/2 -z-20 aspect-square w-[520%] -translate-x-1/2 -translate-y-1/2 text-signal [contain:layout_paint]"
+        >
+            <svg viewBox="0 0 1000 1000" className="absolute inset-0 size-full" fill="none">
+                <g stroke="currentColor" strokeWidth="1">
+                    {RINGS.map((ring) => (
+                        <circle
+                            key={ring.r}
+                            cx="500"
+                            cy="500"
+                            r={ring.r}
+                            opacity={ring.opacity}
+                            strokeDasharray={ring.dashed ? "2 5" : undefined}
+                            vectorEffect="non-scaling-stroke"
+                        />
+                    ))}
+                </g>
+            </svg>
         </div>
     );
 }

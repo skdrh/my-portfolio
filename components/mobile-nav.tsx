@@ -49,7 +49,7 @@ export function MobileNav() {
             {open ? (
                 <div className="fixed inset-0 z-50 overflow-y-auto bg-background lg:hidden">
                     <div className="flex h-16 items-center justify-between border-b border-border px-4 sm:px-6">
-                        <span className="callout">Menu</span>
+                        <span className="field">Menu</span>
                         <button
                             type="button"
                             onClick={() => setOpen(false)}
@@ -61,17 +61,14 @@ export function MobileNav() {
                     </div>
 
                     <nav aria-label="Mobile" className="flex flex-col">
-                        {SITEMAP.map((item, i) => (
+                        {SITEMAP.map((item) => (
                             <a
                                 key={item.href}
                                 href={item.href}
                                 onClick={() => setOpen(false)}
-                                className="flex items-baseline gap-4 border-b border-border px-4 py-4 transition-colors hover:bg-muted sm:px-6"
+                                className="border-b border-border px-4 py-4 font-display text-[22px] font-semibold tracking-[-0.03em] text-foreground transition-colors hover:bg-muted sm:px-6"
                             >
-                                <span className="ref">{String(i + 1).padStart(2, "0")}</span>
-                                <span className="font-display text-[20px] font-semibold tracking-[-0.03em] text-foreground">
-                                    {item.label}
-                                </span>
+                                {item.label}
                             </a>
                         ))}
                     </nav>

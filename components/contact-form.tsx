@@ -79,14 +79,14 @@ export function ContactForm() {
     if (status.kind === "sent") {
         return (
             <div className="border border-signal-line bg-signal-soft p-6 sm:p-8">
-                <p className="flex items-center gap-2.5 font-mono text-[10.5px] tracking-[0.14em] text-muted-foreground uppercase">
-                    <Check className="size-3.5 text-signal-ink dark:text-signal" />
+                <p className="flex items-center gap-2.5 text-[13.5px] font-medium text-muted-foreground">
+                    <Check className="size-4 text-signal-ink dark:text-signal" />
                     Message sent
                 </p>
-                <p className="mt-4 font-display text-[19px] leading-snug font-semibold tracking-[-0.025em] text-foreground">
+                <p className="mt-4 font-display text-[22px] leading-snug font-semibold tracking-[-0.03em] text-foreground">
                     Thanks — it landed.
                 </p>
-                <p className="mt-2 text-[14px] leading-7 text-muted-foreground">
+                <p className="mt-2 text-[15px] leading-[1.75] text-muted-foreground">
                     I read everything myself and usually reply within a day. If it is urgent,{" "}
                     <a
                         href={`mailto:${CONTACT_EMAIL}`}
@@ -99,7 +99,7 @@ export function ContactForm() {
                 <button
                     type="button"
                     onClick={() => setStatus({kind: "idle"})}
-                    className="mt-6 font-mono text-[11px] tracking-[0.06em] text-muted-foreground uppercase underline underline-offset-4 transition-colors hover:text-foreground"
+                    className="mt-6 font-display text-[14.5px] font-medium text-muted-foreground underline decoration-signal decoration-2 underline-offset-[5px] transition-colors hover:text-foreground"
                 >
                     Send another
                 </button>
@@ -111,11 +111,14 @@ export function ContactForm() {
 
     return (
         <form onSubmit={handleSubmit} className="border border-border bg-surface">
-            <div className="border-b border-border px-5 py-3.5 sm:px-6">
-                <span className="field">New enquiry</span>
+            <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 sm:px-7">
+                <span className="font-display text-[16px] font-semibold tracking-[-0.02em] text-foreground">
+                    New enquiry
+                </span>
+                <span className="text-[13px] text-muted-foreground">Goes straight to my inbox</span>
             </div>
 
-            <div className="space-y-5 p-5 sm:p-6">
+            <div className="space-y-6 p-5 sm:p-7">
                 {/* Bot trap. Off-screen rather than display:none — some bots skip
                     hidden fields, and none of them read aria-hidden. */}
                 <div aria-hidden className="absolute left-[-9999px] h-px w-px overflow-hidden">
@@ -150,8 +153,8 @@ export function ContactForm() {
                                     aria-pressed={active}
                                     className={
                                         active
-                                            ? "border border-signal-solid bg-signal-solid px-3 py-2 font-mono text-[11px] text-signal-on-solid transition-colors"
-                                            : "border border-border px-3 py-2 font-mono text-[11px] text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+                                            ? "border border-signal-solid bg-signal-solid px-3.5 py-2 text-[13.5px] font-medium text-signal-on-solid transition-colors"
+                                            : "border border-border px-3.5 py-2 text-[13.5px] text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
                                     }
                                 >
                                     {type}
@@ -172,7 +175,7 @@ export function ContactForm() {
                         rows={6}
                         minLength={10}
                         placeholder="What are you building, and what is in the way?"
-                        className="mt-2.5 w-full resize-y border border-input bg-background px-3.5 py-3 text-[14px] leading-7 text-foreground placeholder:text-faint focus:border-ring focus:outline-none"
+                        className="mt-2.5 w-full resize-y border border-input bg-background px-3.5 py-3 text-[15px] leading-7 text-foreground placeholder:text-faint focus:border-ring focus:outline-none"
                     />
                 </div>
 
@@ -192,7 +195,7 @@ export function ContactForm() {
                 <button
                     type="submit"
                     disabled={sending}
-                    className="inline-flex h-11 w-full items-center justify-center gap-2 bg-signal-solid px-5 font-mono text-[11px] tracking-[0.08em] text-signal-on-solid uppercase transition-opacity hover:opacity-90 disabled:opacity-60 sm:w-auto"
+                    className="btn btn-primary w-full disabled:opacity-60 sm:w-auto"
                 >
                     {sending ? (
                         <>
@@ -232,7 +235,7 @@ function Field({
         <div>
             <label htmlFor={name} className="field">
                 {label}
-                {optional ? <span className="ml-1.5 normal-case">(optional)</span> : null}
+                {optional ? <span className="ml-1.5 font-normal text-faint">(optional)</span> : null}
             </label>
             <input
                 id={name}
@@ -241,7 +244,7 @@ function Field({
                 required={required}
                 placeholder={placeholder}
                 autoComplete={autoComplete}
-                className="mt-2.5 h-11 w-full border border-input bg-background px-3.5 text-[14px] text-foreground placeholder:text-faint focus:border-ring focus:outline-none"
+                className="mt-2.5 h-12 w-full border border-input bg-background px-3.5 text-[15px] text-foreground placeholder:text-faint focus:border-ring focus:outline-none"
             />
         </div>
     );

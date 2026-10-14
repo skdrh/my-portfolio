@@ -40,6 +40,9 @@ export const GITHUB_HANDLE = "skdrh";
  */
 export const ROLE = "Software Architect & Product Builder";
 
+/** The same role as a person says it — for running text and the hero kicker. */
+export const ROLE_SPOKEN = ROLE.charAt(0) + ROLE.slice(1).toLowerCase();
+
 /** 551px at Arial 20px, inside the 580px a results page shows. */
 export const SITE_TITLE = `${NAME} (${ALIAS}) — ${ROLE}`;
 

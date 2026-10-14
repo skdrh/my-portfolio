@@ -1,78 +1,68 @@
 import {ArrowUpRight} from "lucide-react";
 
 import {Section} from "@/components/section";
-import {WORK} from "@/data/work";
+import {WorkDiagram} from "@/components/work-diagrams";
+import {WORK, type WorkItem} from "@/data/work";
+import {cn} from "@/lib/utils";
 
 /**
- * Four entries, each a full-width register row rather than a card in a grid.
+ * Four entries, each a drawing of the system beside what it is.
  *
  * What a stranger can evaluate is the problem and what was built for it, so
- * that is all a row holds: the claim, a sentence or two, the stack, and one
- * link out to the full case study. The live-site links that used to sit
- * beside it are one click further on, inside the write-up.
+ * that is what a row holds: the drawing, the claim, a sentence or two, the
+ * stack, and one link out to the full case study. The drawings alternate
+ * sides down the page so the section reads as a sequence of plates rather
+ * than a table. They continue the portrait's numbering — FIG. 01 is the
+ * hero — because together they are one set of drawings.
  */
 export function Work() {
     return (
         <Section
             id="work"
-            index={2}
-            label="Selected work"
             title="Four systems people depend on."
-            intro="Products and client platforms, delivered end to end. Each one is written up in full, architecture and decisions included."
+            intro="Products and client platforms, delivered end to end. Each one has a full case study, with the architecture and the decisions behind it."
         >
-            <ol className="border-t border-border">
+            <ol className="space-y-20 sm:space-y-28">
                 {WORK.map((item, i) => (
                     <li
                         key={item.slug}
                         id={item.slug}
-                        className="reveal scroll-mt-24 border-b border-border py-8"
+                        className="grid scroll-mt-24 items-center gap-x-14 gap-y-8 lg:grid-cols-2"
                     >
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                            <span className="ref">{String(i + 1).padStart(2, "0")}</span>
-                            <span aria-hidden className="h-3 w-px bg-border" />
-                            <span className="font-mono text-[10.5px] tracking-[0.12em] text-muted-foreground uppercase">
-                                {item.category}
-                            </span>
-                            <span aria-hidden className="h-3 w-px bg-border" />
-                            <span className="tabular font-mono text-[10.5px] tracking-[0.08em] text-faint">
-                                {item.year}
-                            </span>
-                            <span aria-hidden className="h-3 w-px bg-border" />
-                            <span className="flex items-center gap-2 font-mono text-[10.5px] tracking-[0.08em] text-muted-foreground uppercase">
-                                {item.status === "In development" ? (
-                                    <span aria-hidden className="size-1.5 shrink-0 bg-faint" />
-                                ) : (
-                                    <span className="pulse-dot" aria-hidden />
-                                )}
-                                {item.status}
-                            </span>
-                        </div>
+                        <div className="min-w-0">
+                            <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] text-muted-foreground">
+                                <span className="font-medium text-foreground">{item.category}</span>
+                                <span aria-hidden className="h-3 w-px bg-border-strong" />
+                                <span className="tabular font-mono text-[12px]">{item.year}</span>
+                                <span aria-hidden className="h-3 w-px bg-border-strong" />
+                                <span className="inline-flex items-center gap-2">
+                                    <StatusMark status={item.status} />
+                                    {item.status}
+                                </span>
+                            </p>
 
-                        <div className="mt-4 grid gap-x-10 gap-y-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-                            <div className="min-w-0">
-                                <h3 className="font-display text-[24px] leading-tight font-semibold tracking-[-0.035em] text-foreground sm:text-[30px]">
-                                    {item.title}
-                                </h3>
-                                <p className="mt-2 max-w-2xl text-pretty font-display text-[16px] leading-[1.45] font-medium tracking-[-0.02em] text-foreground/85 sm:text-[18px]">
-                                    {item.headline}
-                                </p>
-                                <p className="mt-3 max-w-2xl text-pretty text-[14px] leading-7 text-muted-foreground">
-                                    {item.summary}
-                                </p>
-                                <ul className="mt-5 flex flex-wrap gap-1.5">
-                                    {item.stack.map((tech) => (
-                                        <li key={tech} className="tag">
-                                            {tech}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            <h3 className="mt-5 font-display text-[30px] leading-[1.05] font-semibold tracking-[-0.04em] text-foreground sm:text-[38px]">
+                                {item.title}
+                            </h3>
+                            <p className="mt-3 max-w-xl text-pretty font-display text-[18px] leading-[1.4] font-medium tracking-[-0.02em] text-foreground/85 sm:text-[20px]">
+                                {item.headline}
+                            </p>
+                            <p className="mt-4 max-w-xl text-pretty text-[15px] leading-[1.75] text-muted-foreground">
+                                {item.summary}
+                            </p>
+                            <ul className="mt-6 flex flex-wrap gap-1.5">
+                                {item.stack.map((tech) => (
+                                    <li key={tech} className="tag">
+                                        {tech}
+                                    </li>
+                                ))}
+                            </ul>
 
                             <a
                                 href={item.caseStudy}
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="group/link inline-flex w-fit items-center justify-between gap-3 border border-border px-3.5 py-2.5 font-mono text-[11px] tracking-[0.06em] text-foreground uppercase transition-colors hover:border-border-strong hover:bg-muted"
+                                className="group/link btn btn-secondary mt-8"
                             >
                                 {/* The label reads the same on all four; the project
                                     name rides along as screen-reader text, so each
@@ -82,12 +72,51 @@ export function Work() {
                                     Read the case study
                                     <span className="sr-only"> — {item.title}</span>
                                 </span>
-                                <ArrowUpRight className="size-3.5 shrink-0 text-faint transition-transform group-hover/link:-translate-y-px group-hover/link:translate-x-px group-hover/link:text-foreground" />
+                                <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover/link:-translate-y-px group-hover/link:translate-x-px group-hover/link:text-foreground" />
                             </a>
                         </div>
+
+                        {/* On a phone the drawing leads, like a plate above its
+                            notes; on a wide screen the plates alternate sides. */}
+                        <figure
+                            className={cn(
+                                "plate ticked order-first min-w-0 border border-border-strong bg-background",
+                                i % 2 === 0 ? "lg:order-first" : "lg:order-last",
+                            )}
+                        >
+                            <div className="relative overflow-hidden px-1 py-3 sm:px-5 sm:py-6">
+                                <div
+                                    aria-hidden
+                                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_70%_40%,color-mix(in_oklab,var(--signal)_9%,transparent),transparent)]"
+                                />
+                                <div className="relative">
+                                    <WorkDiagram slug={item.slug} />
+                                </div>
+                            </div>
+                            <figcaption className="flex items-baseline gap-3 border-t border-border-strong bg-surface px-4 py-3">
+                                <span className="ref shrink-0">FIG. {String(i + 2).padStart(2, "0")}</span>
+                                <span className="text-pretty text-[13.5px] leading-snug text-muted-foreground">
+                                    {item.diagram}
+                                </span>
+                            </figcaption>
+                        </figure>
                     </li>
                 ))}
             </ol>
         </Section>
     );
+}
+
+/** Live and active pulse; in development is half drawn, like the Now cards. */
+function StatusMark({status}: {status: WorkItem["status"]}) {
+    if (status === "In development") {
+        return (
+            <span
+                aria-hidden
+                className="size-[7px] shrink-0 border border-signal bg-[linear-gradient(to_right,var(--signal)_50%,transparent_50%)]"
+            />
+        );
+    }
+
+    return <span className="pulse-dot" aria-hidden />;
 }

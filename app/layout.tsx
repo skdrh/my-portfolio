@@ -81,6 +81,11 @@ export const metadata: Metadata = {
     // the right type and sizes. Declaring them here as well produced two
     // competing <link rel="icon"> tags.
     manifest: "/manifest.webmanifest",
+    // The name under the icon when the page is added to an iPhone home
+    // screen — the handle fits where "Salman Khan (skdrh)" would truncate.
+    appleWebApp: {
+        title: ALIAS,
+    },
     // The share image is app/opengraph-image.tsx — the portrait on the
     // drafting sheet — and Next attaches it to both of these on its own.
     openGraph: {
@@ -107,6 +112,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
     width: "device-width",
     initialScale: 1,
+    // Both themes are real, so the browser may draw its own scrollbars and
+    // form controls dark or light to match, instead of always light.
+    colorScheme: "dark light",
     themeColor: [
         {media: "(prefers-color-scheme: light)", color: "#f7f8fb"},
         {media: "(prefers-color-scheme: dark)", color: "#070b14"},

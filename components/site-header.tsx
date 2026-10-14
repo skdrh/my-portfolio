@@ -5,8 +5,8 @@ import {HANDLE, NAV} from "@/lib/site";
 
 /**
  * A floating bar: inset from the viewport edges, frosted rather than opaque,
- * so the hero's drawing ground runs underneath it and the page reads as one
- * sheet instead of a sheet with a lid on it.
+ * so the hero's drawing runs underneath it and the page reads as one sheet
+ * instead of a sheet with a lid on it.
  *
  * The frost is its own layer behind the bar's contents, not a class on the
  * bar. `backdrop-filter` makes an element the containing block for every
@@ -31,12 +31,12 @@ export function SiteHeader() {
                     <Wordmark />
                 </a>
 
-                <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
+                <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
                     {NAV.map((item) => (
                         <a
                             key={item.href}
                             href={item.href}
-                            className="font-mono text-[11px] tracking-[0.08em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+                            className="font-display text-[14.5px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
                         >
                             {item.label}
                         </a>
@@ -45,10 +45,7 @@ export function SiteHeader() {
 
                 <div className="flex items-center gap-2">
                     <ThemeToggle />
-                    <a
-                        href="#contact"
-                        className="hidden h-9 items-center bg-signal-solid px-4 font-mono text-[11px] tracking-[0.08em] text-signal-on-solid uppercase transition-opacity hover:opacity-90 sm:inline-flex"
-                    >
+                    <a href="#contact" className="btn btn-primary hidden h-9 px-4 text-[14px] sm:inline-flex">
                         Get in touch
                     </a>
                     <MobileNav />

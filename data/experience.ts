@@ -1,3 +1,16 @@
+import {CAREER_START, COMPANY} from "@/lib/site";
+
+/**
+ * The timeline told as a story, for the column beside it. Every clause is one
+ * of the roles below said in prose — nothing here that the timeline does not
+ * already back up. It is also the page's plainest answer to "who is this
+ * Salman Khan", which is worth having in words a search engine can read.
+ */
+export const STORY = [
+    `I started in ${CAREER_START} as a graphic designer in the UAE, designing logos, 3D signage and brand identities. That is where my eye for type and spacing comes from.`,
+    `By 2018 the deliverable was code: Python scripts, Django APIs, websites. Since then I've built products end to end, on my own and with teams, and in 2025 I founded ${COMPANY.name}.`,
+];
+
 /**
  * The timeline, one line per role. The facts are unchanged from the previous
  * portfolio — same employers, same years — only the length is.

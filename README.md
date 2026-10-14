@@ -7,9 +7,10 @@ One page, one photograph, no trackers. Next.js 16, React 19, Tailwind CSS 4.
 The copy follows the [GitHub profile README](https://github.com/skdrh/skdrh):
 short, first person, and in the same order.
 
-Laid out like a drafting sheet: a blueprint grid, bracketed callouts and
-registration ticks, on the theory that a page about building systems should
-look like the drawing of one.
+Laid out as a set of drawings, on the theory that a page about building
+systems should show the systems: the portrait is FIG. 01, with a protractor
+dial and rings set out around it, and every case study is drawn as the
+architecture it describes.
 
 ---
 
@@ -56,17 +57,21 @@ There is no CMS and no admin. Everything is typed data in two folders:
 | --------------------- | ------------------------------------------------------ |
 | `lib/site.ts`         | Name, handle, title, description, portrait, socials, figures, nav |
 | `data/now.ts`         | Right now — what is on the bench                        |
-| `data/work.ts`        | The four case-studied systems, linked to dragondevs.co  |
+| `data/work.ts`        | The four case-studied systems, linked to dragondevs.co, and each drawing's caption |
 | `data/built.ts`       | Things I've built — earlier projects, one line each     |
 | `data/toolbox.ts`     | Technologies grouped by job                             |
-| `data/experience.ts`  | The timeline                                            |
+| `data/experience.ts`  | The timeline, and the two-paragraph story beside it     |
 | `data/principles.ts`  | How I work — the three rules                            |
 | `data/faq.ts`         | FAQ copy — also emitted as FAQPage structured data       |
 | `lib/seo.ts`          | JSON-LD schemas and the keyword set                     |
 | `public/skdrh.jpg`    | The portrait — hero, share card, Person schema, sitemap |
 
 Changing `SITE_URL` in `lib/site.ts` updates the canonical URL, sitemap,
-robots.txt, Open Graph tags and structured data together.
+robots.txt, `llms.txt`, Open Graph tags and structured data together.
+
+The case-study drawings live in `components/work-diagrams.tsx`, one function
+per `slug`. Draw only what the case study summary says — the drawings are
+claims too.
 
 ## SEO budgets
 
@@ -85,21 +90,27 @@ them when editing:
   study. Questions, roles and project names are not headings. It was 41.
 - **Name and handle together.** "Salman Khan" alone belongs to a film star;
   the title, image alt, caption and structured data all pair it with *skdrh*.
+- **`/llms.txt`** gives AI assistants and AI search the page as plain
+  Markdown, generated from the same data, so it cannot drift from the page.
+- **Lighthouse.** SEO, accessibility and best practices score 100 on mobile
+  and desktop; performance is 100 on desktop and ~90 on mobile.
 
 ## Design system
 
 `app/globals.css` holds it, and the comment at the top explains the reasoning.
-The organising idea is a **drafting sheet**:
+The organising idea is a **set of drawings**:
 
-- **One photograph.** The portrait, framed as `FIG. 01` with registration
-  ticks. No screenshots: a dashboard at thumbnail size proves nothing, so the
-  rest of the page carries itself on structure.
-- **A blueprint ground.** Deep navy in dark, cool paper in light, with a
-  measured 32px grid under the hero and blue-tinted hairlines everywhere, so
-  the whole surface reads as one sheet.
-- **Drafting motifs that mean something.** Labels sit in square brackets like
-  callouts on a drawing (`[ SELECTED WORK ]`), and the profile block carries
-  registration ticks on the diagonal.
+- **One photograph, five drawings.** The portrait, framed as `FIG. 01` with
+  registration ticks, a protractor dial and rings carrying out across the
+  hero; then `FIG. 02`–`05`, one system drawing per case study. No
+  screenshots: a dashboard at thumbnail size proves nothing, a drawing of how
+  the thing works does.
+- **A blueprint ground, no grid.** Deep navy in dark, cool paper in light,
+  blue-tinted hairlines everywhere. The drawings carry the structure; a ruled
+  background competing with them only made the page busy.
+- **Words for people.** Headings large and alone, labels in sentence case,
+  body text at 15–17px. Mono is kept for what behaves like data: figure
+  numbers, years, stack names, labels inside a drawing.
 - **One accent** — `--signal`, an azure — meaning *live, load-bearing, mine*.
   On light it never carries text; it lives in rules, ticks and grid lines while
   the words stay ink. Filled controls use the separate `--signal-solid` /
@@ -109,9 +120,10 @@ The organising idea is a **drafting sheet**:
   paragraphs, IBM Plex Mono — drawn for engineering documentation — for
   anything that behaves like data.
 - **Zero radius.** Nothing on a drawing is rounded.
-- **One motion behaviour** — a scroll-driven rise on section entry, done in CSS
-  with `animation-timeline: view()`. No observer, no JS, and it degrades to
-  simply showing the content.
+- **Motion only for what is live** — the dial turning, the pulse on what is
+  available, and data moving along each drawing's live line as it scrolls
+  past (`animation-timeline`, no JS, still at rest). Nothing fades in for the
+  sake of it.
 
 Every text colour is solved against its background for WCAG AA (4.5:1) rather
 than picked by eye. The values in `globals.css` carry comments saying so.
@@ -123,12 +135,13 @@ app/
   layout.tsx              fonts, metadata, JSON-LD, theme provider
   page.tsx                section composition
   opengraph-image.tsx     share card: the sheet plus the portrait
-  robots.ts  sitemap.ts
+  robots.ts  sitemap.ts  llms.txt/route.ts
   api/contact/route.ts    SMTP delivery
   manifest.ts             web app manifest
 components/
-  section.tsx             the title-block shell every section opens with
-  hero-backdrop.tsx       the hero's paper grid and construction drawing
+  section.tsx             the heading-first shell every section opens with
+  hero-backdrop.tsx       the hero's dial and the rings around the portrait
+  work-diagrams.tsx       FIG. 02–05, one system drawing per case study
   wordmark.tsx            skdrh_ with the blue, blinking underscore
   sections/               hero, now, work, built, toolbox, experience,
                           how-i-work, faq, contact
